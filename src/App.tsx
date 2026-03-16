@@ -13,6 +13,11 @@ import { Auth } from "./pages/AuthPage";
 import { Register } from "./pages/RegisterPage";
 import { ModeratorProfile } from "./pages/ModeratorProfilePage";
 import { EditProfile } from "./pages/EditProfile";
+import { UserObservations } from "./pages/ObservationTable";
+import { ModeratorQueue } from "./pages/ModeratorTable";
+import { CometsPage } from "./pages/CometsPage";
+import { AllObservationsPage } from "./pages/ObservationsListPage";
+import { CometPage } from "./pages/CometDetails";
 
 function App() {
   return (
@@ -21,7 +26,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/new-observation" element={<NewObservationPage />} />
-        <Route path="/observation" element={<ObservationDetailsPage />} />
+        <Route path="/obs-details" element={<ObservationDetailsPage />} />
         <Route path="/403" element={<ForbiddenPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/profile" element={<UserProfile />} />
@@ -30,6 +35,11 @@ function App() {
         <Route path="/reg" element={<Register />} />
         <Route path="/profile-mod" element={<ModeratorProfile />} />
         <Route path="/profile-edit" element={<EditProfile />} />
+        <Route path="/obs-table" element={<UserObservations />} />
+        <Route path="/mod-table" element={<ModeratorQueue />} />
+        <Route path="/comets" element={<CometsPage />} />
+        <Route path="/obs-list" element={<AllObservationsPage />} />
+        <Route path="/comet-details" element={<CometPage />} />
       </Routes>
     </BrowserRouter>
   );

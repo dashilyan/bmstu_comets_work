@@ -4,16 +4,25 @@ import { runOnnxModelOnImage } from '../onnx/runOnnxImage'
 type UploadedImage = {
   file: File
   url: string
-  time: string
+  time: string  // время съемки (UTC) с миллисекундами
 }
 
 type FormState = {
-  telescopeModel: string
-  cameraModel: string
-  geo: string
-  comment: string
-  brightness: string
-  comaSize: string
+  // Параметры наблюдения (нужны для пересчета пикселей в RA/Dec)
+  telescopeModel: string      // модель телескопа (для информации)
+  cameraModel: string         // модель камеры (для информации)
+  focalLength: string        // фокусное расстояние (мм) - ВАЖНО
+  pixelSize: string          // размер пикселя (мкм) - ВАЖНО
+  centerRA: string           // прямое восхождение центра поля - ВАЖНО
+  centerDec: string          // склонение центра поля - ВАЖНО
+  location: string           // место наблюдения (для отчета)
+  observer: string           // наблюдатель (для отчета)
+  
+  // Параметры кометы (для информации)
+  brightness: string         // яркость (зв. величина)
+  comaSize: string          // размер комы
+  tailLength: string        // длина хвоста
+  notes: string             // примечания
 }
 
 const MAX_IMAGES = 10
@@ -30,10 +39,16 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
   const [form, setForm] = useState<FormState>({
     telescopeModel: '',
     cameraModel: '',
-    geo: '',
-    comment: '',
+    focalLength: '',
+    pixelSize: '',
+    centerRA: '',
+    centerDec: '',
+    location: '',
+    observer: '',
     brightness: '',
     comaSize: '',
+    tailLength: '',
+    notes: ''
   })
 
   const [isRunning, setIsRunning] = useState(false)
@@ -102,6 +117,12 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
       return
     }
 
+    // Проверка обязательных полей для пересчета координат
+    if (!form.focalLength || !form.pixelSize || !form.centerRA || !form.centerDec) {
+      setRunError('Для расчета координат необходимо заполнить: фокусное расстояние, размер пикселя, координаты центра поля.')
+      return
+    }
+
     setIsRunning(true)
     try {
       const r = await runOnnxModelOnImage({ modelUrl: MODEL_URL, file: activeImage, topK: 5 })
@@ -121,100 +142,261 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
 
   return (
     <div className="min-vh-100 d-flex flex-column">
-      <header className="app-topbar">
-        <div className="container py-3 d-flex align-items-center justify-content-between">
-          <div className="app-brand fs-3">Cometica</div>
-          <nav className="d-flex gap-4">
-            <a className="app-link" href="#">
-              FAQ
-            </a>
-            <a className="app-link" href="#">
-              Лидеры
-            </a>
-            <a
-              className="app-link"
-              href="#"
-              onClick={(e) => {
-                e.preventDefault()
-                onOpenObservationDetails?.()
-              }}
-            >
-              Наблюдения
-            </a>
-            <a className="app-link" href="#">
-              Кометы
-            </a>
-            <a className="app-link" href="#">
-              Профиль
-            </a>
-          </nav>
+      <header 
+        className="app-topbar position-relative overflow-hidden" 
+        style={{ 
+          height: '96px',
+          position: 'relative',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        }}
+      >
+        {/* Зоны свечения */}
+        <div
+          className="position-absolute"
+          style={{
+            left: '963px',
+            top: '-474px',
+            width: '672px',
+            height: '670px',
+            background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 14%, rgba(255, 255, 255, 0) 100%)',
+            filter: 'blur(40px)',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+        
+        <div
+          className="position-absolute"
+          style={{
+            left: '27px',
+            top: '-183px',
+            width: '762px',
+            height: '759px',
+            background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 14%, rgba(255, 255, 255, 0) 100%)',
+            filter: 'blur(40px)',
+            pointerEvents: 'none',
+            zIndex: 1
+          }}
+        />
+
+        {/* Навигация */}
+        <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
+          <div className="d-flex align-items-center justify-content-between h-100">
+            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+              <a className="app-link flex-fill text-center" href="#">FAQ</a>
+              <a className="app-link flex-fill text-center" href="#">Лидеры</a>
+              <a 
+                className="app-link flex-fill text-center" 
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onOpenObservationDetails?.()
+                }}
+              >
+                Наблюдения
+              </a>
+              <a className="app-link flex-fill text-center" href="#">Кометы</a>
+              <a className="app-link flex-fill text-center" href="#">Профиль</a>
+            </nav>
+          </div>
         </div>
       </header>
 
-      <main className="container flex-grow-1 py-4">
-        <div className="app-surface p-4 p-md-5">
-          <div className="app-breadcrumb mb-2">Главная / Профиль / Создание наблюдения</div>
-          <div className="d-flex align-items-end justify-content-between flex-wrap gap-3 mb-4">
-            <div className="app-title fs-2 text-uppercase">Создание нового наблюдения</div>
-          </div>
+      {/* Breadcrumbs и заголовок */}
+      <div 
+        className="mx-auto"
+        style={{
+          maxWidth: '1280px',
+          width: 'calc(100% - 80px)',
+          margin: '48px auto 0',
+        }}
+      >
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px' }}>
+          Главная / Профиль / Создание наблюдения
+        </div>
+        
+        <h1 style={{ 
+          fontSize: '36px', 
+          color: '#ffffff', 
+          textTransform: 'uppercase',
+          margin: 0
+        }}>
+          Создание нового наблюдения
+        </h1>
+      </div>
 
-          <div className="d-flex align-items-center justify-content-between mb-3">
-            <div className="app-section-title text-uppercase">Добавьте фотографии</div>
-            <div className="text-white-50">{photoCountLabel}</div>
-          </div>
+      <main className="flex-grow-1">
+        <div 
+          className="mx-auto"
+          style={{
+            maxWidth: '1280px',
+            width: 'calc(100% - 80px)',
+            margin: '40px auto 64px',
+          }}
+        >
+          {/* Блок добавления фотографий */}
+          <div style={{ marginBottom: '32px' }}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '16px'
+            }}>
+              <h2 style={{ 
+                fontSize: '24px', 
+                color: '#ffffff', 
+                textTransform: 'uppercase',
+                margin: 0
+              }}>
+                Добавить фотографии
+              </h2>
+              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '16px' }}>
+                {photoCountLabel}
+              </span>
+            </div>
 
-          <div className="app-surface app-surface--thin p-3 mb-4">
-            <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
-              <div className="text-white-50">Выберите до {MAX_IMAGES} фото. Клик по превью — выбрать активное.</div>
-              <label className="btn btn-sm btn-outline-light">
-                Добавить фото
+            {/* Кнопка добавления фото */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{ cursor: 'pointer' }}>
+                <div
+                  style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderRadius: '32px',
+                    position: 'relative',
+                    color: '#ffffff',
+                    fontSize: '16px'
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      borderRadius: '32px',
+                      padding: '1px',
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(255,255,255,0.5) 100%)',
+                      WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                      WebkitMaskComposite: 'xor',
+                      maskComposite: 'exclude',
+                      pointerEvents: 'none'
+                    }}
+                  />
+                  <span>+ Добавить фото</span>
+                </div>
                 <input
                   className="d-none"
                   type="file"
                   accept="image/*"
                   multiple
                   onChange={(e) => onPickFiles(e.target.files)}
+                  style={{ display: 'none' }}
                 />
               </label>
+              <span style={{ marginLeft: '16px', color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>
+                до {MAX_IMAGES} фото
+              </span>
             </div>
 
-            <div className="row g-3">
+            {/* Сетка изображений */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
+              gap: '20px'
+            }}>
               {Array.from({ length: Math.max(5, Math.min(MAX_IMAGES, images.length || 5)) }).map((_, idx) => {
                 const img = images[idx]
                 const isActive = idx === activeIndex
                 return (
-                  <div className="col-6 col-md-4 col-lg-2" key={idx}>
+                  <div key={idx} style={{
+                    padding: '16px',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    borderRadius: '24px',
+                    border: isActive ? '2px solid rgba(255,255,255,0.8)' : '2px solid transparent'
+                  }}>
                     {img ? (
-                      <div>
-                        <div className="position-relative mb-2">
-                          <button
-                            type="button"
-                            className={`photo-slot ${isActive ? 'border border-2 border-light' : ''}`}
+                      <>
+                        <div style={{ position: 'relative', marginBottom: '12px' }}>
+                          <div
                             onClick={() => setActiveIndex(idx)}
-                            title="Выбрать"
+                            style={{
+                              width: '100%',
+                              aspectRatio: '1',
+                              borderRadius: '16px',
+                              overflow: 'hidden',
+                              cursor: 'pointer',
+                              backgroundColor: 'rgba(0,0,0,0.3)'
+                            }}
                           >
-                            <img src={img.url} alt={`upload-${idx}`} />
-                          </button>
+                            <img 
+                              src={img.url} 
+                              alt={`upload-${idx}`}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          </div>
                           <button
-                            type="button"
-                            className="btn btn-sm btn-dark position-absolute top-0 end-0 m-1"
                             onClick={() => removeImage(idx)}
-                            aria-label="Удалить"
-                            title="Удалить"
+                            style={{
+                              position: 'absolute',
+                              top: '8px',
+                              right: '8px',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '50%',
+                              backgroundColor: 'rgba(0,0,0,0.6)',
+                              border: '1px solid rgba(255,255,255,0.3)',
+                              color: '#ffffff',
+                              fontSize: '18px',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
                           >
                             ×
                           </button>
                         </div>
-                        <input
-                          type="time"
-                          className="form-control form-control-sm app-input"
-                          value={img.time}
-                          onChange={(e) => updateImageTime(idx, e.target.value)}
-                          placeholder="Время"
-                        />
-                      </div>
+                        
+                        {/* Время съемки с миллисекундами */}
+                        <div>
+                          <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', display: 'block', marginBottom: '4px' }}>
+                            Время съемки (UTC.мс) *
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="ЧЧ:ММ:СС.ссс"
+                            value={img.time}
+                            onChange={(e) => updateImageTime(idx, e.target.value)}
+                            style={{
+                              width: '100%',
+                              height: '36px',
+                              backgroundColor: 'rgba(255,255,255,0.1)',
+                              border: 'none',
+                              borderRadius: '18px',
+                              padding: '0 12px',
+                              fontSize: '14px',
+                              color: '#ffffff',
+                              outline: 'none'
+                            }}
+                            required
+                          />
+                        </div>
+                      </>
                     ) : (
-                      <div className="photo-slot photo-slot--empty text-white-50">+</div>
+                      <div style={{
+                        width: '100%',
+                        aspectRatio: '1',
+                        borderRadius: '16px',
+                        backgroundColor: 'rgba(255,255,255,0.03)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'rgba(255,255,255,0.2)',
+                        fontSize: '32px'
+                      }}>
+                        +
+                      </div>
                     )}
                   </div>
                 )
@@ -222,96 +404,392 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
             </div>
           </div>
 
-          <div className="row g-4">
-            <div className="col-12 col-lg-6">
-              <div className="app-section-title text-uppercase mb-3">Укажите параметры наблюдения</div>
-
-              <div className="mb-3">
-                <div className="text-white-50 mb-1">Модель телескопа</div>
-                <input
-                  className="form-control app-input"
-                  value={form.telescopeModel}
-                  onChange={(e) => setForm((p) => ({ ...p, telescopeModel: e.target.value }))}
-                />
+          {/* Блок ввода данных - два столбца */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: '1fr 1fr', 
+            gap: '48px',
+            marginTop: '64px'
+          }}>
+            {/* Левый столбец - параметры наблюдения */}
+            <div>
+              <h2 style={{ 
+                fontSize: '24px', 
+                color: '#ffffff', 
+                textTransform: 'uppercase',
+                marginBottom: '24px'
+              }}>
+                Параметры съемки
+              </h2>
+              
+              <div style={{ marginBottom: '16px', color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>
+                * Поля, отмеченные звездочкой, обязательны для расчета координат
               </div>
 
-              <div className="mb-3">
-                <div className="text-white-50 mb-1">Модель фотокамеры</div>
-                <input
-                  className="form-control app-input"
-                  value={form.cameraModel}
-                  onChange={(e) => setForm((p) => ({ ...p, cameraModel: e.target.value }))}
-                />
-              </div>
-
-              <div className="mb-3">
-                <div className="text-white-50 mb-1">Географические координаты</div>
-                <input
-                  className="form-control app-input"
-                  value={form.geo}
-                  onChange={(e) => setForm((p) => ({ ...p, geo: e.target.value }))}
-                />
-              </div>
-
-              <div className="mb-3">
-                <div className="text-white-50 mb-1">Комментарии</div>
-                <textarea
-                  className="form-control app-input"
-                  rows={3}
-                  value={form.comment}
-                  onChange={(e) => setForm((p) => ({ ...p, comment: e.target.value }))}
-                />
-              </div>
-            </div>
-
-            <div className="col-12 col-lg-6">
-              <div className="app-section-title text-uppercase mb-3">Укажите параметры кометы</div>
-
-              <div className="mb-3">
-                <div className="text-white-50 mb-1">Яркость</div>
-                <input
-                  className="form-control app-input"
-                  value={form.brightness}
-                  onChange={(e) => setForm((p) => ({ ...p, brightness: e.target.value }))}
-                />
-              </div>
-
-              <div className="mb-3">
-                <div className="text-white-50 mb-1">Размер комы</div>
-                <input
-                  className="form-control app-input"
-                  value={form.comaSize}
-                  onChange={(e) => setForm((p) => ({ ...p, comaSize: e.target.value }))}
-                />
-              </div>
-
-              <div className="mt-4">
-                <button className="btn btn-outline-light px-4 py-2" type="button" onClick={onSubmit} disabled={isRunning}>
-                  {isRunning ? 'Распознаю…' : 'Сохранить наблюдение'}
-                </button>
-              </div>
-
-              {(runError || runResult) && (
-                <div className="mt-3">
-                  {runError && <div className="alert alert-danger mb-2">{runError}</div>}
-                  {runResult && (
-                    <pre className="app-surface app-surface--thin p-3 mb-0" style={{ whiteSpace: 'pre-wrap' }}>
-                      {runResult}
-                    </pre>
-                  )}
-                  <div className="text-white-50 mt-2" style={{ fontSize: '0.9rem' }}>
-                    Модель берётся из <code className="text-white">public/models/model.onnx</code>.
-                  </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* Координаты центра поля */}
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Прямое восхождение центра поля (RA) *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="чч:мм:сс.сс"
+                    value={form.centerRA}
+                    onChange={(e) => setForm(p => ({ ...p, centerRA: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                    required
+                  />
                 </div>
-              )}
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Склонение центра поля (Dec) *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="±гг:мм:сс.сс"
+                    value={form.centerDec}
+                    onChange={(e) => setForm(p => ({ ...p, centerDec: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                    required
+                  />
+                </div>
+
+                {/* Оптические параметры */}
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Фокусное расстояние (мм) *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: 1000"
+                    value={form.focalLength}
+                    onChange={(e) => setForm(p => ({ ...p, focalLength: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Размер пикселя (мкм) *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: 5.4"
+                    value={form.pixelSize}
+                    onChange={(e) => setForm(p => ({ ...p, pixelSize: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                    required
+                  />
+                </div>
+
+                {/* Информационные поля */}
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Модель телескопа
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: Celestron C8"
+                    value={form.telescopeModel}
+                    onChange={(e) => setForm(p => ({ ...p, telescopeModel: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Модель фотокамеры
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: ZWO ASI294MC"
+                    value={form.cameraModel}
+                    onChange={(e) => setForm(p => ({ ...p, cameraModel: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+              </div>
             </div>
+
+            {/* Правый столбец - дополнительные параметры */}
+            <div>
+              <h2 style={{ 
+                fontSize: '24px', 
+                color: '#ffffff', 
+                textTransform: 'uppercase',
+                marginBottom: '24px'
+              }}>
+                Дополнительная информация
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Место наблюдения
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Обсерватория или координаты"
+                    value={form.location}
+                    onChange={(e) => setForm(p => ({ ...p, location: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Наблюдатель
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ваше имя"
+                    value={form.observer}
+                    onChange={(e) => setForm(p => ({ ...p, observer: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Яркость кометы
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: 8.5m"
+                    value={form.brightness}
+                    onChange={(e) => setForm(p => ({ ...p, brightness: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Размер комы
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: 15' × 12'"
+                    value={form.comaSize}
+                    onChange={(e) => setForm(p => ({ ...p, comaSize: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Длина хвоста
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="например: 2.5°"
+                    value={form.tailLength}
+                    onChange={(e) => setForm(p => ({ ...p, tailLength: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      height: '48px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                    Примечания
+                  </label>
+                  <textarea
+                    rows={4}
+                    value={form.notes}
+                    onChange={(e) => setForm(p => ({ ...p, notes: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '12px 20px',
+                      fontSize: '16px',
+                      color: '#ffffff',
+                      outline: 'none',
+                      resize: 'vertical'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Кнопка сохранения и результаты модели */}
+          <div style={{ marginTop: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              onClick={onSubmit}
+              disabled={isRunning}
+              style={{
+                padding: '16px 48px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                border: 'none',
+                position: 'relative',
+                cursor: isRunning ? 'not-allowed' : 'pointer',
+                fontSize: '20px',
+                color: '#ffffff',
+                borderRadius: '32px',
+                outline: 'none',
+                opacity: isRunning ? 0.5 : 1
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '32px',
+                  padding: '1px',
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(255,255,255,0.5) 100%)',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                  pointerEvents: 'none'
+                }}
+              />
+              <span>{isRunning ? 'Обработка...' : 'Сохранить наблюдение'}</span>
+            </button>
+
+            {(runError || runResult) && (
+              <div style={{ marginTop: '24px', width: '100%' }}>
+                {runError && (
+                  <div style={{
+                    padding: '16px',
+                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                    borderRadius: '16px',
+                    color: '#ff6b6b',
+                    border: '1px solid rgba(255, 107, 107, 0.3)'
+                  }}>
+                    {runError}
+                  </div>
+                )}
+                {runResult && (
+                  <pre style={{
+                    padding: '16px',
+                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    borderRadius: '16px',
+                    color: '#ffffff',
+                    whiteSpace: 'pre-wrap',
+                    fontSize: '14px'
+                  }}>
+                    {runResult}
+                  </pre>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </main>
-
-      <footer className="container py-3 text-white-50" style={{ fontSize: '0.9rem' }}>
-        Фон: <code className="text-white">public/background.jpg</code>
-      </footer>
     </div>
   )
 }
