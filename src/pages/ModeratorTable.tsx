@@ -141,8 +141,8 @@ export function ModeratorQueue() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -162,7 +162,7 @@ export function ModeratorQueue() {
           margin: '80px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
           Главная / Модерация / Очередь проверки
         </div>
       </div>
@@ -184,7 +184,8 @@ export function ModeratorQueue() {
           marginBottom: '32px',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center', 
+          fontFamily: 'Lemon Milk'
         }}>
           Очередь на проверку
           <span style={{
@@ -193,7 +194,8 @@ export function ModeratorQueue() {
             backgroundColor: 'rgba(255,255,255,0.1)',
             padding: '8px 16px',
             borderRadius: '32px',
-            fontWeight: 'normal'
+            fontWeight: 'normal', 
+            fontFamily: 'Naga'
           }}>
             {moderationItems.length} заявок
           </span>
@@ -211,7 +213,8 @@ export function ModeratorQueue() {
               <div style={{ 
                 fontSize: '24px', 
                 color: '#ffffff', 
-                marginBottom: '8px'
+                marginBottom: '8px', 
+                fontFamily: 'Lemon Milk'
               }}>
                 {filter.label}
               </div>
@@ -232,7 +235,8 @@ export function ModeratorQueue() {
                       outline: 'none',
                       position: 'relative',
                       zIndex: 1,
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box', 
+                      fontFamily: 'Naga'
                     }}
                   />
                   <div
@@ -270,7 +274,8 @@ export function ModeratorQueue() {
                       zIndex: 1,
                       cursor: 'pointer',
                       appearance: 'none',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box', 
+                      fontFamily: 'Naga'
                     }}
                   >
                     {filter.options?.map(option => (
@@ -303,7 +308,8 @@ export function ModeratorQueue() {
                     color: 'rgba(255,255,255,0.5)',
                     fontSize: '12px',
                     zIndex: 3,
-                    pointerEvents: 'none'
+                    pointerEvents: 'none', 
+                    fontFamily: 'Naga'
                   }}>
                     ▼
                   </div>
@@ -328,7 +334,8 @@ export function ModeratorQueue() {
                 color: '#ffffff',
                 fontSize: '16px',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative', 
+                fontFamily: 'Naga'
               }}
             >
               <div
@@ -381,13 +388,13 @@ export function ModeratorQueue() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>ID</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Тип</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Объект</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Автор</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Дата подачи</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Приоритет</th>
-                <th style={{ textAlign: 'center', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }} colSpan={2}>Действия</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>ID</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Тип</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Объект</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Автор</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Дата подачи</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Приоритет</th>
+                <th style={{ textAlign: 'center', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }} colSpan={2}>Действия</th>
               </tr>
             </thead>
             <tbody>
@@ -405,7 +412,8 @@ export function ModeratorQueue() {
                       backgroundColor: 'rgba(255,255,255,0.15)',
                       color: '#ffffff',
                       borderRadius: '20px',
-                      fontSize: '14px'
+                      fontSize: '14px', 
+                      fontFamily: 'Naga'
                     }}>
                       {item.priority}
                     </span>
@@ -424,7 +432,8 @@ export function ModeratorQueue() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        position: 'relative'
+                        position: 'relative', 
+                        fontFamily: 'Naga'
                       }}
                       title="Подтвердить"
                     >
@@ -458,7 +467,8 @@ export function ModeratorQueue() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        position: 'relative'
+                        position: 'relative', 
+                        fontFamily: 'Naga'
                       }}
                       title="Отклонить"
                     >
@@ -492,7 +502,8 @@ export function ModeratorQueue() {
             justifyContent: 'space-between',
             alignItems: 'center',
             color: 'rgba(255,255,255,0.6)',
-            fontSize: '14px'
+            fontSize: '14px', 
+            fontFamily: 'Naga'
           }}>
             <span>Всего заявок: {moderationItems.length}</span>
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -504,7 +515,8 @@ export function ModeratorQueue() {
                 color: '#ffffff',
                 fontSize: '13px',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative', 
+                fontFamily: 'Naga'
               }}>
                 <div
                   style={{
@@ -530,7 +542,8 @@ export function ModeratorQueue() {
                 color: '#ffffff',
                 fontSize: '13px',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative', 
+                fontFamily: 'Naga'
               }}>
                 <div
                   style={{

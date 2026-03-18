@@ -105,8 +105,8 @@ export function CometsPage() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -126,12 +126,13 @@ export function CometsPage() {
           margin: '48px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px', fontFamily: 'Naga' }}>
           Главная / Кометы
         </div>
         
         <h1 style={{ 
           fontSize: '36px', 
+          fontFamily: 'Lemon Milk',
           color: '#ffffff', 
           textTransform: 'uppercase',
           margin: 0
@@ -227,6 +228,7 @@ export function CometsPage() {
               }}>
                 <div style={{
                   fontSize: '16px',
+                  fontFamily: 'Naga',
                   fontWeight: '500',
                   color: '#ffffff',
                   marginBottom: '4px',
@@ -239,6 +241,7 @@ export function CometsPage() {
                 </div>
                 <div style={{
                   fontSize: '12px',
+                  fontFamily: 'Naga',
                   color: 'rgba(255, 255, 255, 0.6)'
                 }}>
                   {comet.observations} {comet.observations === 1 ? 'наблюдение' : 
@@ -255,7 +258,8 @@ export function CometsPage() {
           display: 'flex',
           justifyContent: 'center',
           color: 'rgba(255, 255, 255, 0.6)',
-          fontSize: '16px'
+          fontSize: '16px',
+          fontFamily: 'Naga'
         }}>
           Всего комет в каталоге: {comets.length}
         </div>

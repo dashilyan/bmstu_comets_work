@@ -48,8 +48,8 @@ export function ModeratorProfile() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -69,7 +69,7 @@ export function ModeratorProfile() {
           margin: '80px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
           Главная / Профиль модератора
         </div>
       </div>
@@ -150,13 +150,13 @@ export function ModeratorProfile() {
               marginBottom: 'auto'
             }}
           >
-            <div style={{ fontSize: '24px', color: '#ffffff', marginBottom: '4px' }}>
+            <div style={{ fontSize: '24px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
               Алексей Модератор
             </div>
-            <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '8px' }}>
+            <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.8)', marginBottom: '8px', fontFamily: 'Lemon Milk' }}>
               Модератор
             </div>
-            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>
+            <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
               На модерации с 2024
             </div>
           </div>
@@ -171,19 +171,19 @@ export function ModeratorProfile() {
               marginTop: '20px'
             }}
           >
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Панель управления
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Очередь проверки
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Жалобы
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Статистика модерации
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Настройки
             </a>
           </div>
@@ -244,8 +244,8 @@ export function ModeratorProfile() {
                     <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>24</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>ожидают</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>24</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>ожидают</div>
               </div>
 
               {/* Проверено сегодня */}
@@ -255,8 +255,8 @@ export function ModeratorProfile() {
                     <path d="M20 6L9 17L4 12" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>18</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>проверено</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>18</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>проверено</div>
               </div>
 
               {/* Отклонено */}
@@ -266,8 +266,8 @@ export function ModeratorProfile() {
                     <path d="M18 6L6 18M6 6L18 18" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>3</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>отклонено</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>3</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga'}}>отклонено</div>
               </div>
             </div>
           </div>
@@ -310,6 +310,7 @@ export function ModeratorProfile() {
             >
               <h3 style={{ 
                 fontSize: '20px', 
+                fontFamily: 'Lemon Milk', 
                 textTransform: 'uppercase',
                 color: '#ffffff',
                 margin: 0
@@ -322,7 +323,8 @@ export function ModeratorProfile() {
                   border: '1px solid rgba(255,255,255,0.2)',
                   borderRadius: '16px',
                   padding: '8px 16px',
-                  color: '#ffffff',
+                  color: '#ffffff', 
+                  fontFamily: 'Naga',
                   fontSize: '14px',
                   outline: 'none'
                 }}>
@@ -354,10 +356,10 @@ export function ModeratorProfile() {
                   backgroundSize: '10px 10px'
                 }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
                     Комета C/2024 A1 (пользователь: user123)
                   </div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga' }}>
                     10 мин назад • требуется проверка
                   </div>
                 </div>
@@ -369,7 +371,8 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
                     ✓
                   </button>
@@ -380,7 +383,8 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
                     ✗
                   </button>
@@ -391,9 +395,10 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
-                    details
+                    подробнее
                   </button>
                 </div>
               </div>
@@ -416,10 +421,10 @@ export function ModeratorProfile() {
                   backgroundSize: '10px 10px'
                 }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
                     Наблюдение 12P/Pons-Brooks (пользователь: astro_boris)
                   </div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga' }}>
                     1 час назад • ждет подтверждения
                   </div>
                 </div>
@@ -431,7 +436,8 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
                     ✓
                   </button>
@@ -442,7 +448,8 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
                     ✗
                   </button>
@@ -453,9 +460,10 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
-                    details
+                    подробнее
                   </button>
                 </div>
               </div>
@@ -478,10 +486,10 @@ export function ModeratorProfile() {
                   backgroundSize: '10px 10px'
                 }} />
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
                     Жалоба на пользователя comet_hunter (пользователь: star_gazer)
                   </div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga' }}>
                     3 часа назад • нарушение правил
                   </div>
                 </div>
@@ -493,7 +501,8 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
                     принять
                   </button>
@@ -504,7 +513,8 @@ export function ModeratorProfile() {
                     borderRadius: '20px',
                     color: '#ffffff',
                     cursor: 'pointer',
-                    fontSize: '14px'
+                    fontSize: '14px', 
+                    fontFamily: 'Naga'
                   }}>
                     отклонить
                   </button>

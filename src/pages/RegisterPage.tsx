@@ -48,8 +48,8 @@ export function Register() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -138,7 +138,7 @@ export function Register() {
               gap: '8px',
               position: 'relative'
             }}>
-              <label style={{ fontSize: '24px', color: '#ffffff' }}>Логин</label>
+              <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Логин</label>
               <input
                 type="text"
                 style={{
@@ -152,7 +152,7 @@ export function Register() {
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
-                  zIndex: 1
+                  zIndex: 1, fontFamily: 'Naga'
                 }}
               />
               <div
@@ -181,7 +181,7 @@ export function Register() {
               gap: '8px',
               position: 'relative'
             }}>
-              <label style={{ fontSize: '24px', color: '#ffffff' }}>Образование</label>
+              <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Образование</label>
               <input
                 type="text"
                 style={{
@@ -195,7 +195,7 @@ export function Register() {
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
-                  zIndex: 1
+                  zIndex: 1, fontFamily: 'Naga'
                 }}
               />
               <div
@@ -224,7 +224,7 @@ export function Register() {
               gap: '8px',
               position: 'relative'
             }}>
-              <label style={{ fontSize: '24px', color: '#ffffff' }}>Пароль</label>
+              <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Пароль</label>
               <input
                 type="password"
                 style={{
@@ -238,7 +238,7 @@ export function Register() {
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
-                  zIndex: 1
+                  zIndex: 1, fontFamily: 'Naga'
                 }}
               />
               <div
@@ -267,7 +267,7 @@ export function Register() {
               gap: '8px',
               position: 'relative'
             }}>
-              <label style={{ fontSize: '24px', color: '#ffffff' }}>Повторите пароль</label>
+              <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Повторите пароль</label>
               <input
                 type="password"
                 style={{
@@ -281,7 +281,7 @@ export function Register() {
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
-                  zIndex: 1
+                  zIndex: 1, fontFamily: 'Naga'
                 }}
               />
               <div
@@ -321,7 +321,7 @@ export function Register() {
               letterSpacing: '1px',
               borderRadius: '32px',
               outline: 'none',
-              flexShrink: 0
+              flexShrink: 0, fontFamily: 'Naga'
             }}
           >
             <div

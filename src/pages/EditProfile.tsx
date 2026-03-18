@@ -49,8 +49,8 @@ export function EditProfile() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -72,7 +72,7 @@ export function EditProfile() {
           zIndex: 3
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
           Главная / Профиль / Редактирование
         </div>
       </div>
@@ -177,10 +177,10 @@ export function EditProfile() {
                 marginBottom: 'auto'
               }}
             >
-              <div style={{ fontSize: '24px', color: '#ffffff', marginBottom: '4px' }}>
+              <div style={{ fontSize: '24px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
                 Дарья Рабочая
               </div>
-              <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+              <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
                 42 наблюдения
               </div>
             </div>
@@ -195,19 +195,19 @@ export function EditProfile() {
                 marginTop: '20px'
               }}
             >
-              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
                 Настройки профиля
               </a>
-              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
                 Мои наблюдения
               </a>
-              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
                 Избранное
               </a>
-              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
                 Помощь
               </a>
-              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+              <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
                 Выйти
               </a>
             </div>
@@ -266,8 +266,8 @@ export function EditProfile() {
                       <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
                   </div>
-                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>42</div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>наблюдений</div>
+                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>42</div>
+                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>наблюдений</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ marginBottom: '12px' }}>
@@ -275,8 +275,8 @@ export function EditProfile() {
                       <path d="M20 6L9 17L4 12" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>38</div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>подтверждено</div>
+                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>38</div>
+                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>подтверждено</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ marginBottom: '12px' }}>
@@ -284,8 +284,8 @@ export function EditProfile() {
                       <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>35</div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>верифицировано</div>
+                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>35</div>
+                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>верифицировано</div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ marginBottom: '12px' }}>
@@ -293,8 +293,8 @@ export function EditProfile() {
                       <path d="M12 20V10M18 20V4M6 20V16" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
                   </div>
-                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>92.5%</div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>точность</div>
+                  <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>92.5%</div>
+                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>точность</div>
                 </div>
               </div>
             </div>
@@ -326,7 +326,7 @@ export function EditProfile() {
                 }}
               />
               
-              <h3 style={{ fontSize: '20px', marginBottom: '24px', textTransform: 'uppercase', color: '#ffffff' }}>
+              <h3 style={{ fontSize: '20px', marginBottom: '24px', textTransform: 'uppercase', color: '#ffffff', fontFamily: 'Lemon Milk' }}>
                 Наблюдения
               </h3>
               
@@ -342,8 +342,8 @@ export function EditProfile() {
                       backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%)',
                       backgroundSize: '20px 20px'
                     }} />
-                    <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>C/2023 A3</div>
-                    <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)' }}>12.03.2026</div>
+                    <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>C/2023 A3</div>
+                    <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga' }}>12.03.2026</div>
                   </div>
                 ))}
               </div>
@@ -388,7 +388,7 @@ export function EditProfile() {
         />
 
         {/* Заголовок */}
-        <h2 style={{ fontSize: '32px', color: '#ffffff', textTransform: 'uppercase', margin: 0 }}>
+        <h2 style={{ fontSize: '32px', color: '#ffffff', textTransform: 'uppercase', margin: 0, fontFamily: 'Lemon Milk' }}>
           Редактировать профиль
         </h2>
 
@@ -396,7 +396,7 @@ export function EditProfile() {
         <div style={{ width: '432px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {/* Имя */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
-            <label style={{ fontSize: '24px', color: '#ffffff' }}>Имя</label>
+            <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Имя</label>
             <input
               type="text"
               defaultValue="Дарья Рабочая"
@@ -408,6 +408,7 @@ export function EditProfile() {
                 borderRadius: '32px',
                 padding: '0 20px',
                 fontSize: '18px',
+                fontFamily: 'Naga',
                 color: '#ffffff',
                 outline: 'none',
                 position: 'relative',
@@ -435,7 +436,7 @@ export function EditProfile() {
 
           {/* Образование */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
-            <label style={{ fontSize: '24px', color: '#ffffff' }}>Образование</label>
+            <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Образование</label>
             <input
               type="text"
               defaultValue="МГТУ им. Баумана"
@@ -447,6 +448,7 @@ export function EditProfile() {
                 borderRadius: '32px',
                 padding: '0 20px',
                 fontSize: '18px',
+                fontFamily: 'Naga',
                 color: '#ffffff',
                 outline: 'none',
                 position: 'relative',
@@ -474,7 +476,7 @@ export function EditProfile() {
 
           {/* Город */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
-            <label style={{ fontSize: '24px', color: '#ffffff' }}>Город</label>
+            <label style={{ fontSize: '24px', color: '#ffffff',fontFamily: 'Naga' }}>Город</label>
             <input
               type="text"
               defaultValue="Москва"
@@ -486,6 +488,7 @@ export function EditProfile() {
                 borderRadius: '32px',
                 padding: '0 20px',
                 fontSize: '18px',
+                fontFamily: 'Naga',
                 color: '#ffffff',
                 outline: 'none',
                 position: 'relative',
@@ -518,7 +521,7 @@ export function EditProfile() {
             gap: '8px', 
             position: 'relative'
           }}>
-            <label style={{ fontSize: '24px', color: '#ffffff' }}>О себе</label>
+            <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>О себе</label>
             <div style={{ position: 'relative', width: '100%' }}>
               <textarea
                 defaultValue="Астроном-любитель с 5-летним стажем. Специализируюсь на наблюдении комет и астероидов."
@@ -530,12 +533,12 @@ export function EditProfile() {
                   borderRadius: '32px',
                   padding: '12px 20px',
                   fontSize: '18px',
+                  fontFamily: 'Naga',
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
                   zIndex: 1,
                   resize: 'vertical',
-                  fontFamily: 'inherit',
                   boxSizing: 'border-box'
                 }}
               />
@@ -570,6 +573,7 @@ export function EditProfile() {
               position: 'relative',
               cursor: 'pointer',
               fontSize: '18px',
+              fontFamily: 'Naga',
               color: '#ffffff',
               borderRadius: '32px',
               outline: 'none'
@@ -598,6 +602,7 @@ export function EditProfile() {
               position: 'relative',
               cursor: 'pointer',
               fontSize: '18px',
+              fontFamily: 'Naga',
               color: '#ffffff',
               borderRadius: '32px',
               outline: 'none'

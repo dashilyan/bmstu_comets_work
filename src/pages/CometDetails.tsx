@@ -153,8 +153,8 @@ export function CometPage() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -220,12 +220,12 @@ export function CometPage() {
               }}
             >
               {/* Breadcrumbs */}
-              <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+              <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
                 Главная / Кометы / {cometName}
               </div>
               
               {/* Заголовок капсом */}
-              <div style={{ fontSize: '36px', color: '#ffffff', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '36px', color: '#ffffff', textTransform: 'uppercase', fontFamily: 'Lemon Milk' }}>
                 {cometName}
               </div>
             </div>
@@ -281,10 +281,10 @@ export function CometPage() {
             
             {/* Заголовок */}
             <div style={{ marginBottom: '24px' }}>
-              <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '8px' }}>
+              <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '8px', fontFamily: 'Naga' }}>
                 {cometDetails.designation}
               </div>
-              <h2 style={{ fontSize: '28px', color: '#ffffff', margin: 0, textTransform: 'uppercase' }}>
+              <h2 style={{ fontSize: '28px', color: '#ffffff', margin: 0, textTransform: 'uppercase', fontFamily: 'Lemon Milk' }}>
                 {cometDetails.name}
               </h2>
             </div>
@@ -305,10 +305,10 @@ export function CometPage() {
                   borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                 }}
               >
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px' }}>
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px', fontFamily: 'Naga' }}>
                   Дата открытия
                 </span>
-                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right' }}>
+                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right', fontFamily: 'Naga' }}>
                   {cometDetails.discoveryDate}
                 </span>
               </div>
@@ -322,10 +322,10 @@ export function CometPage() {
                   borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                 }}
               >
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px' }}>
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px', fontFamily: 'Naga' }}>
                   Первооткрыватель
                 </span>
-                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right' }}>
+                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right', fontFamily: 'Naga' }}>
                   {cometDetails.discoverer}
                 </span>
               </div>
@@ -339,10 +339,10 @@ export function CometPage() {
                   borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                 }}
               >
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px' }}>
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px', fontFamily: 'Naga' }}>
                   Яркость
                 </span>
-                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right' }}>
+                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right', fontFamily: 'Naga' }}>
                   {cometDetails.magnitude}
                 </span>
               </div>
@@ -356,10 +356,10 @@ export function CometPage() {
                   borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                 }}
               >
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px' }}>
+                <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px', fontFamily: 'Naga' }}>
                   Размер комы
                 </span>
-                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right' }}>
+                <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right', fontFamily: 'Naga' }}>
                   {cometDetails.comaSize}
                 </span>
               </div>
@@ -369,6 +369,7 @@ export function CometPage() {
             <div>
               <h3 style={{ 
                 fontSize: '18px', 
+                fontFamily: 'Lemon Milk',
                 color: '#ffffff', 
                 marginBottom: '16px',
                 textTransform: 'uppercase',
@@ -401,12 +402,14 @@ export function CometPage() {
                       fontSize: '20px', 
                       color: '#ffffff',
                       fontWeight: '500',
+                      fontFamily: 'Naga',
                       marginBottom: '4px'
                     }}>
                       {param.value}
                     </div>
                     <div style={{ 
                       fontSize: '14px', 
+                      fontFamily: 'Naga',
                       color: 'rgba(255, 255, 255, 0.5)',
                       marginBottom: '2px'
                     }}>
@@ -415,6 +418,7 @@ export function CometPage() {
                     {param.description && (
                       <div style={{ 
                         fontSize: '11px', 
+                        fontFamily: 'Naga',
                         color: 'rgba(255, 255, 255, 0.3)'
                       }}>
                         {param.description}
@@ -430,6 +434,7 @@ export function CometPage() {
           <div>
             <h2 style={{ 
               fontSize: '24px', 
+              fontFamily: 'Lemon Milk',
               color: '#ffffff', 
               textTransform: 'uppercase',
               marginBottom: '24px'
@@ -485,8 +490,8 @@ export function CometPage() {
                       padding: '0 16px',
                       borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                     }}>
-                      <span style={{ fontSize: '16px', color: '#ffffff' }}>{obs.userName}</span>
-                      <span style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)' }}>↗</span>
+                      <span style={{ fontSize: '16px', color: '#ffffff', fontFamily: 'Naga' }}>{obs.userName}</span>
+                      <span style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga' }}>↗</span>
                     </div>
 
                     {/* Центр */}
@@ -506,7 +511,7 @@ export function CometPage() {
                       padding: '0 16px',
                       borderTop: '1px solid rgba(255, 255, 255, 0.1)'
                     }}>
-                      <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>{obs.date}</span>
+                      <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', fontFamily: 'Naga' }}>{obs.date}</span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -530,6 +535,7 @@ export function CometPage() {
         <div>
           <h2 style={{ 
             fontSize: '24px', 
+            fontFamily: 'Lemon Milk',
             color: '#ffffff', 
             textTransform: 'uppercase',
             marginBottom: '24px'
@@ -592,10 +598,10 @@ export function CometPage() {
                     </div>
                     
                     <div>
-                      <div style={{ fontSize: '20px', color: '#ffffff', marginBottom: '4px' }}>
+                      <div style={{ fontSize: '20px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
                         {obs.userName}
                       </div>
-                      <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)' }}>
+                      <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga' }}>
                         {obs.userObservations} наблюдений
                       </div>
                     </div>
@@ -603,7 +609,7 @@ export function CometPage() {
 
                   {/* Дата и кнопки */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                    <div style={{ fontSize: '18px', color: 'rgba(255,255,255,0.8)' }}>
+                    <div style={{ fontSize: '18px', color: 'rgba(255,255,255,0.8)', fontFamily: 'Naga' }}>
                       {obs.date}
                     </div>
                     
@@ -616,6 +622,7 @@ export function CometPage() {
                           borderRadius: '24px',
                           color: '#ffffff',
                           fontSize: '14px',
+                          fontFamily: 'Naga',
                           cursor: 'pointer',
                           position: 'relative'
                         }}
@@ -644,6 +651,7 @@ export function CometPage() {
                           borderRadius: '24px',
                           color: '#ffffff',
                           fontSize: '14px',
+                          fontFamily: 'Naga',
                           cursor: 'pointer',
                           position: 'relative'
                         }}

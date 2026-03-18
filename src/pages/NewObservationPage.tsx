@@ -182,20 +182,11 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
-              <a 
-                className="app-link flex-fill text-center" 
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  onOpenObservationDetails?.()
-                }}
-              >
-                Наблюдения
-              </a>
+              <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
               <a className="app-link flex-fill text-center" href="#">Кометы</a>
               <a className="app-link flex-fill text-center" href="#">Профиль</a>
             </nav>
@@ -212,7 +203,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
           margin: '48px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px', fontFamily: 'Naga' }}>
           Главная / Профиль / Создание наблюдения
         </div>
         
@@ -220,7 +211,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
           fontSize: '36px', 
           color: '#ffffff', 
           textTransform: 'uppercase',
-          margin: 0
+          margin: 0, 
+          fontFamily: 'Lemon Milk'
         }}>
           Создание нового наблюдения
         </h1>
@@ -247,11 +239,12 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                 fontSize: '24px', 
                 color: '#ffffff', 
                 textTransform: 'uppercase',
-                margin: 0
+                margin: 0, 
+                fontFamily: 'Lemon Milk'
               }}>
                 Добавить фотографии
               </h2>
-              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '16px' }}>
+              <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '16px', fontFamily: 'Naga' }}>
                 {photoCountLabel}
               </span>
             </div>
@@ -267,7 +260,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                     borderRadius: '32px',
                     position: 'relative',
                     color: '#ffffff',
-                    fontSize: '16px'
+                    fontSize: '16px', 
+                    fontFamily: 'Naga'
                   }}
                 >
                   <div
@@ -294,7 +288,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                   style={{ display: 'none' }}
                 />
               </label>
-              <span style={{ marginLeft: '16px', color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>
+              <span style={{ marginLeft: '16px', color: 'rgba(255,255,255,0.4)', fontSize: '14px', fontFamily: 'Naga' }}>
                 до {MAX_IMAGES} фото
               </span>
             </div>
@@ -351,7 +345,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                               cursor: 'pointer',
                               display: 'flex',
                               alignItems: 'center',
-                              justifyContent: 'center'
+                              justifyContent: 'center', 
+                              fontFamily: 'Naga'
                             }}
                           >
                             ×
@@ -360,7 +355,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                         
                         {/* Время съемки с миллисекундами */}
                         <div>
-                          <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', display: 'block', marginBottom: '4px' }}>
+                          <label style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', display: 'block', marginBottom: '4px', fontFamily: 'Naga' }}>
                             Время съемки (UTC.мс) *
                           </label>
                           <input
@@ -377,7 +372,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                               padding: '0 12px',
                               fontSize: '14px',
                               color: '#ffffff',
-                              outline: 'none'
+                              outline: 'none', 
+                              fontFamily: 'Naga'
                             }}
                             required
                           />
@@ -393,7 +389,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: 'rgba(255,255,255,0.2)',
-                        fontSize: '32px'
+                        fontSize: '32px', 
+                        fontFamily: 'Naga'
                       }}>
                         +
                       </div>
@@ -417,19 +414,20 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                 fontSize: '24px', 
                 color: '#ffffff', 
                 textTransform: 'uppercase',
-                marginBottom: '24px'
+                marginBottom: '24px', 
+                fontFamily: 'Lemon Milk'
               }}>
                 Параметры съемки
               </h2>
               
-              <div style={{ marginBottom: '16px', color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>
+              <div style={{ marginBottom: '16px', color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontFamily: 'Naga' }}>
                 * Поля, отмеченные звездочкой, обязательны для расчета координат
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Координаты центра поля */}
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Прямое восхождение центра поля (RA) *
                   </label>
                   <input
@@ -446,14 +444,15 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', 
+                      fontFamily: 'Naga'
                     }}
                     required
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Склонение центра поля (Dec) *
                   </label>
                   <input
@@ -470,7 +469,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', 
+                      fontFamily: 'Naga'
                     }}
                     required
                   />
@@ -478,7 +478,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
 
                 {/* Оптические параметры */}
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Фокусное расстояние (мм) *
                   </label>
                   <input
@@ -495,14 +495,15 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', 
+                      fontFamily: 'Naga'
                     }}
                     required
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Размер пикселя (мкм) *
                   </label>
                   <input
@@ -519,7 +520,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', 
+                      fontFamily: 'Naga'
                     }}
                     required
                   />
@@ -527,7 +529,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
 
                 {/* Информационные поля */}
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Модель телескопа
                   </label>
                   <input
@@ -544,13 +546,14 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', 
+                      fontFamily: 'Naga'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Модель фотокамеры
                   </label>
                   <input
@@ -567,7 +570,8 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', 
+                      fontFamily: 'Naga'
                     }}
                   />
                 </div>
@@ -580,14 +584,15 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                 fontSize: '24px', 
                 color: '#ffffff', 
                 textTransform: 'uppercase',
-                marginBottom: '24px'
+                marginBottom: '24px', 
+                fontFamily: 'Lemon Milk'
               }}>
                 Дополнительная информация
               </h2>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Место наблюдения
                   </label>
                   <input
@@ -604,13 +609,13 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', fontFamily: 'Naga'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Наблюдатель
                   </label>
                   <input
@@ -627,13 +632,13 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', fontFamily: 'Naga'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Яркость кометы
                   </label>
                   <input
@@ -650,13 +655,13 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', fontFamily: 'Naga'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Размер комы
                   </label>
                   <input
@@ -673,13 +678,13 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', fontFamily: 'Naga'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Длина хвоста
                   </label>
                   <input
@@ -696,13 +701,13 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       padding: '0 20px',
                       fontSize: '16px',
                       color: '#ffffff',
-                      outline: 'none'
+                      outline: 'none', fontFamily: 'Naga'
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px' }}>
+                  <label style={{ color: 'rgba(255,255,255,0.8)', fontSize: '16px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Примечания
                   </label>
                   <textarea
@@ -718,7 +723,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                       fontSize: '16px',
                       color: '#ffffff',
                       outline: 'none',
-                      resize: 'vertical'
+                      resize: 'vertical', fontFamily: 'Naga'
                     }}
                   />
                 </div>
@@ -741,7 +746,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                 color: '#ffffff',
                 borderRadius: '32px',
                 outline: 'none',
-                opacity: isRunning ? 0.5 : 1
+                opacity: isRunning ? 0.5 : 1, fontFamily: 'Naga'
               }}
             >
               <div
@@ -780,7 +785,7 @@ export function NewObservationPage({ onOpenObservationDetails }: NewObservationP
                     borderRadius: '16px',
                     color: '#ffffff',
                     whiteSpace: 'pre-wrap',
-                    fontSize: '14px'
+                    fontSize: '14px', fontFamily: 'Naga'
                   }}>
                     {runResult}
                   </pre>

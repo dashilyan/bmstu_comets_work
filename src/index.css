@@ -12,6 +12,41 @@ body,
 #root {
   height: 100%;
 }
+/* Подключение шрифтов */
+@font-face {
+  font-family: 'Lemon Milk';
+  src: url('/fonts/lemon-milk.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Marlino Regular (OTF формат) */
+@font-face {
+  font-family: 'Marlino';
+  src: url('/fonts/MarlinoRegular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Naga */
+@font-face {
+  font-family: 'Naga';
+  src: url('/fonts/Naga.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Princess Diana */
+@font-face {
+  font-family: 'Princess Diana';
+  src: url('/fonts/Princess-Diana.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 body {
   margin: 0;
@@ -65,6 +100,7 @@ body::before {
 .app-breadcrumb {
   color: var(--c-dim);
   font-size: 0.9rem;
+  font-family: 'Naga';
 }
 
 .app-title {

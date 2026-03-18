@@ -115,8 +115,8 @@ export function UserObservations() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -136,7 +136,7 @@ export function UserObservations() {
           margin: '80px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
           Главная / Профиль / Мои наблюдения
         </div>
       </div>
@@ -155,7 +155,7 @@ export function UserObservations() {
           fontSize: '36px', 
           color: '#ffffff', 
           textTransform: 'uppercase',
-          marginBottom: '32px'
+          marginBottom: '32px', fontFamily: 'Lemon Milk'
         }}>
           Мои наблюдения
         </h1>
@@ -172,7 +172,7 @@ export function UserObservations() {
               <div style={{ 
                 fontSize: '24px', 
                 color: '#ffffff', 
-                marginBottom: '8px'
+                marginBottom: '8px', fontFamily: 'Lemon Milk'
               }}>
                 {filter.label}
               </div>
@@ -193,7 +193,7 @@ export function UserObservations() {
                       outline: 'none',
                       position: 'relative',
                       zIndex: 1,
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box', fontFamily: 'Naga'
                     }}
                   />
                   <div
@@ -231,7 +231,7 @@ export function UserObservations() {
                       zIndex: 1,
                       cursor: 'pointer',
                       appearance: 'none',
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box', fontFamily: 'Naga'
                     }}
                   >
                     {filter.options?.map(option => (
@@ -264,7 +264,7 @@ export function UserObservations() {
                     color: 'rgba(255,255,255,0.5)',
                     fontSize: '12px',
                     zIndex: 3,
-                    pointerEvents: 'none'
+                    pointerEvents: 'none', fontFamily: 'Naga'
                   }}>
                     ▼
                   </div>
@@ -306,29 +306,29 @@ export function UserObservations() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>ID</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Комета</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Дата</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Координаты</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Статус</th>
-                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>Действия</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>ID</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Комета</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Дата</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Координаты</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Статус</th>
+                <th style={{ textAlign: 'left', padding: '16px 8px', color: 'rgba(255,255,255,0.8)', fontSize: '16px', borderBottom: '1px solid rgba(255,255,255,0.2)', fontFamily: 'Naga' }}>Действия</th>
               </tr>
             </thead>
             <tbody>
               {observations.map((obs) => (
                 <tr key={obs.id}>
-                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>#{obs.id}</td>
-                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>{obs.cometName}</td>
-                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>{obs.date}</td>
-                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>{obs.coordinates}</td>
-                  <td style={{ padding: '12px 8px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Naga' }}>#{obs.id}</td>
+                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Naga' }}>{obs.cometName}</td>
+                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Naga' }}>{obs.date}</td>
+                  <td style={{ padding: '12px 8px', color: '#ffffff', borderBottom: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Naga' }}>{obs.coordinates}</td>
+                  <td style={{ padding: '12px 8px', borderBottom: '1px solid rgba(255,255,255,0.1)', fontFamily: 'Naga' }}>
                     <span style={{
                       display: 'inline-block',
                       padding: '4px 12px',
                       backgroundColor: `${obs.statusColor}20`,
                       color: obs.statusColor,
                       borderRadius: '20px',
-                      fontSize: '14px'
+                      fontSize: '14px', fontFamily: 'Naga'
                     }}>
                       {obs.status}
                     </span>
@@ -343,7 +343,7 @@ export function UserObservations() {
                         color: '#ffffff',
                         fontSize: '13px',
                         cursor: 'pointer',
-                        position: 'relative'
+                        position: 'relative', fontFamily: 'Naga'
                       }}
                     >
                       <div
@@ -376,7 +376,7 @@ export function UserObservations() {
             justifyContent: 'space-between',
             alignItems: 'center',
             color: 'rgba(255,255,255,0.6)',
-            fontSize: '14px'
+            fontSize: '14px', fontFamily: 'Naga'
           }}>
             <span>Всего наблюдений: {observations.length}</span>
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -388,7 +388,7 @@ export function UserObservations() {
                 color: '#ffffff',
                 fontSize: '13px',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative', fontFamily: 'Naga'
               }}>
                 <div
                   style={{
@@ -414,7 +414,7 @@ export function UserObservations() {
                 color: '#ffffff',
                 fontSize: '13px',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative', fontFamily: 'Naga'
               }}>
                 <div
                   style={{

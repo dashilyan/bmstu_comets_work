@@ -24,7 +24,6 @@ export function Main() {
           backgroundColor: 'rgba(255, 255, 255, 0.1)'
         }}
       >
-        {/* Зоны свечения как в Base */}
         <div
           className="position-absolute"
           style={{
@@ -56,8 +55,8 @@ export function Main() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -100,10 +99,10 @@ export function Main() {
               maxWidth: '1000px'
             }}
           >
-            <div style={{ fontSize: '96px', color: '#ffffff', lineHeight: '1.1' }}>
+            <div style={{ fontSize: '96px', color: '#ffffff', lineHeight: '1.1', fontFamily: 'Princess Diana' }}>
               Превратите свет в знание.
             </div>
-            <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)' }}>
+            <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)', fontFamily: 'Naga' }}>
               Вы поймали луч от распадающейся древности на матрицу. 
               Мы помогаем совершить алхимию: преобразовать пиксели в параметры, 
               а восторг — в осмысленное открытие. Добро пожаловать в лабораторию 
@@ -125,6 +124,7 @@ export function Main() {
                 position: 'relative',
                 cursor: 'pointer',
                 fontSize: '24px',
+                fontFamily: 'Naga',
                 color: '#ffffff',
                 letterSpacing: '1px',
                 borderRadius: '32px',

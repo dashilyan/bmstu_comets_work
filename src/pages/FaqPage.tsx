@@ -41,8 +41,8 @@ export function FaqPage() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -108,17 +108,17 @@ export function FaqPage() {
               }}
             >
               {/* Breadcrumbs */}
-              <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+              <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
                 Главная / FAQ
               </div>
               
               {/* Заголовок капсом */}
-              <div style={{ fontSize: '36px', color: '#ffffff', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '36px', color: '#ffffff', textTransform: 'uppercase', fontFamily: 'Lemon Milk' }}>
                 КАК ПОЛЬЗОВАТЬСЯ НАШЕЙ СИСТЕМОЙ?
               </div>
               
               {/* Подзаголовок */}
-              <div style={{ fontSize: '24px', color: '#ffffff' }}>
+              <div style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>
                 Простое руководство, в котором мы опишем все шаги для совершения вашего величайшего открытия.
               </div>
             </div>
@@ -154,10 +154,10 @@ export function FaqPage() {
             <div style={{ width: '60%' }}>
               {/* Раздел 1 */}
               <section style={{ marginBottom: '48px' }}>
-                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff' }}>
+                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff', fontFamily: 'Lemon Milk' }}>
                   РЕГИСТРАЦИЯ И ПЕРВЫЙ ВХОД
                 </h2>
-                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)' }}>
+                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)', fontFamily: 'Naga' }}>
                   <p style={{ marginBottom: '16px' }}>
                     Для начала работы необходимо создать аккаунт, нажав кнопку "Регистрация" в правом верхнем углу. 
                     Укажите действующий email и придумайте надежный пароль. После подтверждения email вы сможете 
@@ -172,10 +172,10 @@ export function FaqPage() {
 
               {/* Раздел 2 */}
               <section style={{ marginBottom: '48px' }}>
-                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff' }}>
+                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff', fontFamily: 'Lemon Milk' }}>
                   ЗАГРУЗКА ИЗОБРАЖЕНИЙ
                 </h2>
-                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)' }}>
+                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)', fontFamily: 'Naga' }}>
                   <p style={{ marginBottom: '16px' }}>
                     Перейдите в раздел "Наблюдения" и нажмите "Загрузить новое". Система поддерживает форматы JPG, PNG и FITS.
                     Обязательно укажите метаданные съемки: дату и время (в UTC), координаты центра поля (прямое восхождение 
@@ -190,10 +190,10 @@ export function FaqPage() {
 
               {/* Раздел 3 */}
               <section style={{ marginBottom: '48px' }}>
-                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff' }}>
+                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff', fontFamily: 'Lemon Milk' }}>
                   РАБОТА С РЕЗУЛЬТАТАМИ
                 </h2>
-                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)' }}>
+                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)', fontFamily: 'Naga' }}>
                   <p style={{ marginBottom: '16px' }}>
                     После загрузки нейросеть YOLOv8 автоматически обнаружит кометы на снимке и выделит их рамками. 
                     Вы можете скорректировать положение рамки вручную, если нейросеть ошиблась. Система сразу покажет 
@@ -208,10 +208,10 @@ export function FaqPage() {
 
               {/* Раздел 4 */}
               <section style={{ marginBottom: '48px' }}>
-                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff' }}>
+                <h2 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '16px', color: '#ffffff', fontFamily: 'Lemon Milk' }}>
                   УЧАСТИЕ В СООБЩЕСТВЕ
                 </h2>
-                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)' }}>
+                <div style={{ fontSize: '24px', color: 'rgba(255, 255, 255, 0.85)', fontFamily: 'Naga' }}>
                   <p style={{ marginBottom: '16px' }}>
                     Ваши наблюдения попадают в общую базу, где другие пользователи могут их подтверждать или комментировать.
                     Активные участники получают рейтинг и попадают на доску лидеров. Подтвержденные сообществом наблюдения 
@@ -236,76 +236,76 @@ export function FaqPage() {
                 borderRadius: '14px',
                 backdropFilter: 'blur(10px)'
               }}>
-                <h3 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '24px', color: '#ffffff' }}>
+                <h3 style={{ fontSize: '24px', textTransform: 'uppercase', marginBottom: '24px', color: '#ffffff', fontFamily: 'Lemon Milk' }}>
                   СОДЕРЖАНИЕ
                 </h3>
                 <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div>
-                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px' }}>
+                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                       1. РЕГИСТРАЦИЯ И ПЕРВЫЙ ВХОД
                     </a>
                     <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         1.1 Создание аккаунта
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         1.2 Подтверждение email
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         1.3 Заполнение профиля
                       </a>
                     </div>
                   </div>
                   
                   <div>
-                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px' }}>
+                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                       2. ЗАГРУЗКА ИЗОБРАЖЕНИЙ
                     </a>
                     <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         2.1 Поддерживаемые форматы
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         2.2 Метаданные съемки
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         2.3 Важность точности данных
                       </a>
                     </div>
                   </div>
                   
                   <div>
-                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px' }}>
+                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                       3. РАБОТА С РЕЗУЛЬТАТАМИ
                     </a>
                     <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         3.1 Автоматическое распознавание
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         3.2 Ручная корректировка
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         3.3 Расчет координат и орбит
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         3.4 Экспорт в формате MPC
                       </a>
                     </div>
                   </div>
                   
                   <div>
-                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px' }}>
+                    <a href="#" style={{ color: 'rgba(255, 255, 255, 0.85)', textDecoration: 'none', fontSize: '18px', display: 'block', marginBottom: '8px', fontFamily: 'Naga' }}>
                       4. УЧАСТИЕ В СООБЩЕСТВЕ
                     </a>
                     <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         4.1 Общая база наблюдений
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         4.2 Подтверждение и рейтинг
                       </a>
-                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px' }}>
+                      <a href="#" style={{ color: 'rgba(255, 255, 255, 0.6)', textDecoration: 'none', fontSize: '16px', fontFamily: 'Naga' }}>
                         4.3 Форум и обсуждения
                       </a>
                     </div>

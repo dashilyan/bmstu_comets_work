@@ -48,8 +48,8 @@ export function Auth() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -140,7 +140,7 @@ export function Auth() {
               gap: '8px',
               position: 'relative'
             }}>
-              <label style={{ fontSize: '24px', color: '#ffffff' }}>Логин</label>
+              <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Логин</label>
               <input
                 type="text"
                 style={{
@@ -151,6 +151,7 @@ export function Auth() {
                   borderRadius: '32px',
                   padding: '0 20px',
                   fontSize: '18px',
+                  fontFamily: 'Naga',
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
@@ -183,7 +184,7 @@ export function Auth() {
               gap: '8px',
               position: 'relative'
             }}>
-              <label style={{ fontSize: '24px', color: '#ffffff' }}>Пароль</label>
+              <label style={{ fontSize: '24px', color: '#ffffff', fontFamily: 'Naga' }}>Пароль</label>
               <input
                 type="password"
                 style={{
@@ -194,6 +195,7 @@ export function Auth() {
                   borderRadius: '32px',
                   padding: '0 20px',
                   fontSize: '18px',
+                  fontFamily: 'Naga',
                   color: '#ffffff',
                   outline: 'none',
                   position: 'relative',
@@ -233,6 +235,7 @@ export function Auth() {
               position: 'relative',
               cursor: 'pointer',
               fontSize: '24px',
+              fontFamily: 'Naga',
               color: '#ffffff',
               letterSpacing: '1px',
               borderRadius: '32px',

@@ -73,20 +73,11 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
-              <a 
-                className="app-link flex-fill text-center" 
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault()
-                  onBackToNew?.()
-                }}
-              >
-                Наблюдения
-              </a>
+              <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
               <a className="app-link flex-fill text-center" href="#">Кометы</a>
               <a className="app-link flex-fill text-center" href="#">Профиль</a>
             </nav>
@@ -103,7 +94,7 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
           margin: '48px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
           Главная / Наблюдения / Детали наблюдения
         </div>
       </div>
@@ -179,7 +170,7 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                     color: '#ffffff',
                     fontSize: '24px',
                     backdropFilter: 'blur(4px)',
-                    zIndex: 3
+                    zIndex: 3, fontFamily: 'Naga'
                   }}
                 >
                   ‹
@@ -202,7 +193,7 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                     color: '#ffffff',
                     fontSize: '24px',
                     backdropFilter: 'blur(4px)',
-                    zIndex: 3
+                    zIndex: 3, fontFamily: 'Naga'
                   }}
                 >
                   ›
@@ -268,10 +259,10 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                 
                 {/* Заголовок */}
                 <div style={{ marginBottom: '24px' }}>
-                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '8px' }}>
+                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '8px', fontFamily: 'Naga' }}>
                     Наблюдение №{observationId}
                   </div>
-                  <h2 style={{ fontSize: '28px', color: '#ffffff', margin: 0, textTransform: 'uppercase' }}>
+                  <h2 style={{ fontSize: '28px', color: '#ffffff', margin: 0, textTransform: 'uppercase', fontFamily: 'Lemon Milk' }}>
                     Комета C/2023 A3
                   </h2>
                 </div>
@@ -294,10 +285,10 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                         borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
                       }}
                     >
-                      <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px' }}>
+                      <span style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '15px', fontFamily: 'Naga' }}>
                         {f.label}
                       </span>
-                      <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right', maxWidth: '60%' }}>
+                      <span style={{ color: '#ffffff', fontSize: '15px', textAlign: 'right', maxWidth: '60%', fontFamily: 'Naga' }}>
                         {f.value}
                       </span>
                     </div>
@@ -311,7 +302,7 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                     color: '#ffffff', 
                     marginBottom: '16px',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.5px', fontFamily: 'Lemon Milk'
                   }}>
                     Орбитальные параметры
                   </h3>
@@ -340,21 +331,21 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                           fontSize: '20px', 
                           color: '#ffffff',
                           fontWeight: '500',
-                          marginBottom: '4px'
+                          marginBottom: '4px', fontFamily: 'Naga'
                         }}>
                           {param.value}
                         </div>
                         <div style={{ 
                           fontSize: '14px', 
                           color: 'rgba(255, 255, 255, 0.5)',
-                          marginBottom: '2px'
+                          marginBottom: '2px', fontFamily: 'Naga'
                         }}>
                           {param.label}
                         </div>
                         {param.description && (
                           <div style={{ 
                             fontSize: '11px', 
-                            color: 'rgba(255, 255, 255, 0.3)'
+                            color: 'rgba(255, 255, 255, 0.3)', fontFamily: 'Naga'
                           }}>
                             {param.description}
                           </div>
@@ -418,10 +409,10 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                   </svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: '18px', color: '#ffffff', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '18px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>
                     astro_daria
                   </div>
-                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)' }}>
+                  <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'Naga' }}>
                     123 наблюдения
                   </div>
                 </div>
@@ -438,7 +429,7 @@ export function ObservationDetailsPage({ onBackToNew }: ObservationDetailsPagePr
                   fontSize: '16px',
                   color: '#ffffff',
                   borderRadius: '32px',
-                  outline: 'none'
+                  outline: 'none', fontFamily: 'Naga'
                 }}
               >
                 <div

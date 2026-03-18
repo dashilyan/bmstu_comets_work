@@ -112,8 +112,8 @@ export function AllObservationsPage() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -133,7 +133,7 @@ export function AllObservationsPage() {
           margin: '48px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '16px', fontFamily: 'Naga' }}>
           Главная / Наблюдения
         </div>
         
@@ -141,7 +141,7 @@ export function AllObservationsPage() {
           fontSize: '36px', 
           color: '#ffffff', 
           textTransform: 'uppercase',
-          margin: 0
+          margin: 0, fontFamily: 'Lemon Milk'
         }}>
           Все наблюдения пользователей
         </h1>
@@ -217,7 +217,7 @@ export function AllObservationsPage() {
                   <span style={{
                     fontSize: '20px',
                     color: '#ffffff',
-                    fontWeight: '500'
+                    fontWeight: '500', fontFamily: 'Naga'
                   }}>
                     {observation.userName}
                   </span>
@@ -225,7 +225,7 @@ export function AllObservationsPage() {
                     fontSize: '20px',
                     color: 'rgba(255, 255, 255, 0.8)',
                     transform: 'rotate(45deg)',
-                    display: 'inline-block'
+                    display: 'inline-block', fontFamily: 'Naga'
                   }}>
                     ↗
                   </span>
@@ -257,7 +257,7 @@ export function AllObservationsPage() {
                 }}>
                   <span style={{
                     fontSize: '20px',
-                    color: 'rgba(255, 255, 255, 0.8)'
+                    color: 'rgba(255, 255, 255, 0.8)', fontFamily: 'Naga'
                   }}>
                     {observation.date}
                   </span>
@@ -305,7 +305,7 @@ export function AllObservationsPage() {
                     fontSize: '24px',
                     color: '#ffffff',
                     fontWeight: '600',
-                    textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+                    textShadow: '0 2px 4px rgba(0,0,0,0.5)', fontFamily: 'Naga'
                   }}>
                     {observation.cometName}
                   </span>
@@ -321,7 +321,7 @@ export function AllObservationsPage() {
           display: 'flex',
           justifyContent: 'center',
           color: 'rgba(255, 255, 255, 0.6)',
-          fontSize: '16px'
+          fontSize: '16px', fontFamily: 'Naga'
         }}>
           Всего наблюдений: {observations.length}
         </div>

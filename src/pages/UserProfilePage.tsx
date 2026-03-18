@@ -48,8 +48,8 @@ export function UserProfile() {
         {/* Навигация */}
         <div className="container h-100 px-0 position-relative" style={{ maxWidth: 'calc(100% - 160px)', margin: '0 80px', zIndex: 2 }}>
           <div className="d-flex align-items-center justify-content-between h-100">
-            <div className="app-brand" style={{ fontSize: '40px' }}>Cometica</div>
-            <nav className="d-flex" style={{ fontSize: '20px', width: '644px' }}>
+            <div className="app-brand" style={{ fontSize: '40px', fontFamily: 'Marlino' }}>Cometica</div>
+            <nav className="d-flex" style={{ fontSize: '20px', width: '644px', fontFamily: 'Naga' }}>
               <a className="app-link flex-fill text-center" href="#">FAQ</a>
               <a className="app-link flex-fill text-center" href="#">Лидеры</a>
               <a className="app-link flex-fill text-center" href="#">Наблюдения</a>
@@ -69,7 +69,7 @@ export function UserProfile() {
           margin: '80px auto 0',
         }}
       >
-        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+        <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
           Главная / Профиль
         </div>
       </div>
@@ -150,10 +150,10 @@ export function UserProfile() {
               marginBottom: 'auto'
             }}
           >
-            <div style={{ fontSize: '24px', color: '#ffffff', marginBottom: '4px' }}>
+            <div style={{ fontSize: '24px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>
               Дарья Рабочая
             </div>
-            <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)' }}>
+            <div style={{ fontSize: '16px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>
               42 наблюдения
             </div>
           </div>
@@ -168,19 +168,19 @@ export function UserProfile() {
               marginTop: '20px'
             }}
           >
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Настройки профиля
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Мои наблюдения
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Избранное
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Помощь
             </a>
-            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px' }}>
+            <a href="#" style={{ color: 'rgba(255, 255, 255, 0.8)', textDecoration: 'none', fontSize: '18px', fontFamily: 'Naga' }}>
               Выйти
             </a>
           </div>
@@ -240,8 +240,8 @@ export function UserProfile() {
                     <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>42</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>наблюдений</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>42</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>наблюдений</div>
               </div>
 
               {/* Подтверждено */}
@@ -251,8 +251,8 @@ export function UserProfile() {
                     <path d="M20 6L9 17L4 12" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>38</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>подтверждено</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>38</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>подтверждено</div>
               </div>
 
               {/* Верифицировано */}
@@ -262,8 +262,8 @@ export function UserProfile() {
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>35</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>верифицировано</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>35</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>верифицировано</div>
               </div>
 
               {/* Точность */}
@@ -273,8 +273,8 @@ export function UserProfile() {
                     <path d="M12 20V10M18 20V4M6 20V16" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px' }}>92.5%</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)' }}>точность</div>
+                <div style={{ fontSize: '32px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Lemon Milk' }}>92.5%</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Naga' }}>точность</div>
               </div>
             </div>
           </div>
@@ -311,7 +311,7 @@ export function UserProfile() {
               fontSize: '20px', 
               marginBottom: '24px', 
               textTransform: 'uppercase',
-              color: '#ffffff'
+              color: '#ffffff', fontFamily: 'Lemon Milk'
             }}>
               Наблюдения
             </h3>
@@ -337,15 +337,15 @@ export function UserProfile() {
                     backgroundSize: '20px 20px'
                   }}
                 />
-                <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>C/2023 A3</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '4px' }}>12.03.2026</div>
+                <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>C/2023 A3</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '4px', fontFamily: 'Naga' }}>12.03.2026</div>
                 <div style={{ 
                   fontSize: '12px', 
                   color: '#4caf50',
                   display: 'inline-block',
                   padding: '4px 8px',
                   backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                  borderRadius: '20px'
+                  borderRadius: '20px', fontFamily: 'Naga'
                 }}>
                   подтверждено
                 </div>
@@ -364,15 +364,15 @@ export function UserProfile() {
                     backgroundSize: '20px 20px'
                   }}
                 />
-                <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>12P/Pons-Brooks</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '4px' }}>05.03.2026</div>
+                <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>12P/Pons-Brooks</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '4px', fontFamily: 'Naga' }}>05.03.2026</div>
                 <div style={{ 
                   fontSize: '12px', 
                   color: '#ff9800',
                   display: 'inline-block',
                   padding: '4px 8px',
                   backgroundColor: 'rgba(255, 152, 0, 0.1)',
-                  borderRadius: '20px'
+                  borderRadius: '20px', fontFamily: 'Naga'
                 }}>
                   на проверке
                 </div>
@@ -391,15 +391,15 @@ export function UserProfile() {
                     backgroundSize: '20px 20px'
                   }}
                 />
-                <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px' }}>C/2024 E1</div>
-                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '4px' }}>28.02.2026</div>
+                <div style={{ fontSize: '16px', color: '#ffffff', marginBottom: '4px', fontFamily: 'Naga' }}>C/2024 E1</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.5)', marginBottom: '4px', fontFamily: 'Naga' }}>28.02.2026</div>
                 <div style={{ 
                   fontSize: '12px', 
                   color: '#f44336',
                   display: 'inline-block',
                   padding: '4px 8px',
                   backgroundColor: 'rgba(244, 67, 54, 0.1)',
-                  borderRadius: '20px'
+                  borderRadius: '20px', fontFamily: 'Naga'
                 }}>
                   требуется проверка
                 </div>
