@@ -49,13 +49,18 @@ export function AppHeader() {
           </Link>
 
           <nav className="d-flex" style={{ width: '644px' }}>
-            <Link to="/faq" className="app-link" style={linkStyle}>FAQ</Link>
-            <Link to="/obs-list" className="app-link" style={linkStyle}>Наблюдения</Link>
-            <Link to="/comets" className="app-link" style={linkStyle}>Кометы</Link>
             {isAuthenticated ? (
-              <Link to="/profile" className="app-link" style={linkStyle}>Профиль</Link>
+              <>
+                <Link to="/faq" className="app-link" style={linkStyle}>FAQ</Link>
+                <Link to="/obs-list" className="app-link" style={linkStyle}>Наблюдения</Link>
+                <Link to="/comets" className="app-link" style={linkStyle}>Кометы</Link>
+                <Link to="/profile" className="app-link" style={linkStyle}>Профиль</Link>
+              </>
             ) : (
-              <Link to="/auth" className="app-link" style={linkStyle}>Войти</Link>
+              <>
+                <Link to="/comets" className="app-link" style={linkStyle}>Кометы</Link>
+                <Link to="/auth" className="app-link" style={linkStyle}>Войти</Link>
+              </>
             )}
           </nav>
         </div>

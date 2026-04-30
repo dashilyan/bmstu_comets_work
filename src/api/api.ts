@@ -4,7 +4,9 @@ import type {
   ApiModerationQueue, ApiObservationsList,
 } from './types';
 
-export const API_BASE = 'http://localhost:8000';
+// В dev-режиме Vite проксирует /api/* → localhost:8000, поэтому base пустой.
+// Для production задайте переменную VITE_API_BASE_URL.
+export const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
 
 function getCsrfToken(): string {
   const match = document.cookie.match(/csrftoken=([^;]+)/);
