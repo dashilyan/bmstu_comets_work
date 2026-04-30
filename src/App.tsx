@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
+import { AuthProvider } from "./context/AuthContext";
+
 import { FaqPage } from "./pages/FaqPage";
 import { NotFoundPage } from "./pages/404Page";
 import { ForbiddenPage } from "./pages/403Page";
@@ -22,25 +24,29 @@ import { CometPage } from "./pages/CometDetails";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/faq" element={<FaqPage />} />
-        <Route path="/new-observation" element={<NewObservationPage />} />
-        <Route path="/obs-details" element={<ObservationDetailsPage />} />
-        <Route path="/403" element={<ForbiddenPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/base" element={<Base />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/reg" element={<Register />} />
-        <Route path="/profile-mod" element={<ModeratorProfile />} />
-        <Route path="/profile-edit" element={<EditProfile />} />
-        <Route path="/obs-table" element={<UserObservations />} />
-        <Route path="/mod-table" element={<ModeratorQueue />} />
-        <Route path="/comets" element={<CometsPage />} />
-        <Route path="/obs-list" element={<AllObservationsPage />} />
-        <Route path="/comet-details" element={<CometPage />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route path="/new-observation" element={<NewObservationPage />} />
+          <Route path="/obs-details/:id" element={<ObservationDetailsPage />} />
+          <Route path="/obs-details" element={<ObservationDetailsPage />} />
+          <Route path="/403" element={<ForbiddenPage />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/base" element={<Base />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/reg" element={<Register />} />
+          <Route path="/profile-mod" element={<ModeratorProfile />} />
+          <Route path="/profile-edit" element={<EditProfile />} />
+          <Route path="/obs-table" element={<UserObservations />} />
+          <Route path="/mod-table" element={<ModeratorQueue />} />
+          <Route path="/comets" element={<CometsPage />} />
+          <Route path="/obs-list" element={<AllObservationsPage />} />
+          <Route path="/comet-details/:id" element={<CometPage />} />
+          <Route path="/comet-details" element={<CometPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
