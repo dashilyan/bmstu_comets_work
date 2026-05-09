@@ -44,7 +44,18 @@ export function CometsPage() {
     WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
     WebkitMaskComposite: 'xor', maskComposite: 'exclude', pointerEvents: 'none',
   };
+  const isFirstMock = loading && !usingMock && comets === MOCK_COMETS;
 
+  if (isFirstMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+          <h1 style={{ fontSize: '36px', fontFamily: 'Lemon Milk', color: '#fff', textTransform: 'uppercase', margin: 'auto', textAlign:'center' }}>
+            Загрузка...
+          </h1>
+      </div>
+    );
+  }
   return (
     <div className="min-vh-100 d-flex flex-column">
       <AppHeader />

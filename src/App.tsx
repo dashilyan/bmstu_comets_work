@@ -11,7 +11,6 @@ import { ForbiddenPage } from "./pages/403Page";
 import { NewObservationPage } from "./pages/NewObservationPage";
 import { ObservationDetailsPage } from "./pages/ObservationDetailsPage";
 import { UserProfile } from "./pages/UserProfilePage";
-import { Base } from "./pages/BasePage";
 import { Main } from "./pages/MainPage";
 import { Auth } from "./pages/AuthPage";
 import { Register } from "./pages/RegisterPage";
@@ -30,7 +29,11 @@ function ProtectedRoute({ children, requireMod = false }: { children: ReactNode;
   if (requireMod && !user?.is_staff) return <Navigate to="/403" replace />;
   return <>{children}</>;
 }
-
+function ConditionalProfile() {
+  const { user } = useAuth();
+  const isModerator = user?.is_staff || user?.is_superuser;
+  return isModerator ? <ModeratorProfile /> : <UserProfile />;
+}
 function AppRoutes() {
   return (
     <Routes>
@@ -39,19 +42,25 @@ function AppRoutes() {
       <Route path="/auth" element={<Auth />} />
       <Route path="/reg" element={<Register />} />
       <Route path="/403" element={<ForbiddenPage />} />
-      <Route path="/base" element={<Base />} />
       <Route path="/comets" element={<CometsPage />} />
       <Route path="/comet-details/:id" element={<CometPage />} />
       <Route path="/comet-details" element={<CometPage />} />
-      <Route path="/obs-list" element={<AllObservationsPage />} />
-      <Route path="/obs-details/:id" element={<ObservationDetailsPage />} />
-      <Route path="/obs-details" element={<ObservationDetailsPage />} />
+
+      <Route path="/obs-list" element={
+        <ProtectedRoute><AllObservationsPage /></ProtectedRoute>
+        } />
+      <Route path="/obs-details/:id" element={
+        <ProtectedRoute><ObservationDetailsPage /></ProtectedRoute>
+    } />
+      <Route path="/obs-details" element={
+        <ProtectedRoute><ObservationDetailsPage /></ProtectedRoute>
+    } />
 
       <Route path="/new-observation" element={
         <ProtectedRoute><NewObservationPage /></ProtectedRoute>
       } />
       <Route path="/profile" element={
-        <ProtectedRoute><UserProfile /></ProtectedRoute>
+        <ProtectedRoute><ConditionalProfile /></ProtectedRoute>
       } />
       <Route path="/profile-edit" element={
         <ProtectedRoute><EditProfile /></ProtectedRoute>
@@ -60,9 +69,6 @@ function AppRoutes() {
         <ProtectedRoute><UserObservations /></ProtectedRoute>
       } />
 
-      <Route path="/profile-mod" element={
-        <ProtectedRoute requireMod><ModeratorProfile /></ProtectedRoute>
-      } />
       <Route path="/mod-table" element={
         <ProtectedRoute requireMod><ModeratorQueue /></ProtectedRoute>
       } />
