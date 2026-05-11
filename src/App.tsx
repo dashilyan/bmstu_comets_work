@@ -30,7 +30,11 @@ function ProtectedRoute({ children, requireMod = false }: { children: ReactNode;
   if (requireMod && !user?.is_staff) return <Navigate to="/403" replace />;
   return <>{children}</>;
 }
-
+function ConditionalProfile() {
+  const { user } = useAuth();
+  const isModerator = user?.is_staff || user?.is_superuser;
+  return isModerator ? <ModeratorProfile /> : <UserProfile />;
+}
 function AppRoutes() {
   return (
     <Routes>
@@ -51,7 +55,7 @@ function AppRoutes() {
         <ProtectedRoute><NewObservationPage /></ProtectedRoute>
       } />
       <Route path="/profile" element={
-        <ProtectedRoute><UserProfile /></ProtectedRoute>
+        <ProtectedRoute><ConditionalProfile /></ProtectedRoute>
       } />
       <Route path="/profile-edit" element={
         <ProtectedRoute><EditProfile /></ProtectedRoute>
@@ -60,9 +64,6 @@ function AppRoutes() {
         <ProtectedRoute><UserObservations /></ProtectedRoute>
       } />
 
-      <Route path="/profile-mod" element={
-        <ProtectedRoute requireMod><ModeratorProfile /></ProtectedRoute>
-      } />
       <Route path="/mod-table" element={
         <ProtectedRoute requireMod><ModeratorQueue /></ProtectedRoute>
       } />

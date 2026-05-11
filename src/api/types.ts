@@ -21,6 +21,7 @@ export interface UserStats extends ApiUser {
   public_observations: number;
   calculations_count: number;
   recent_observations: ApiObservation[];
+  is_superuser: boolean;
 }
 
 export interface ApiComet {
