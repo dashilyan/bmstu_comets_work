@@ -71,7 +71,7 @@ export function AllObservationsPage() {
     date_to: filterDateTo || undefined,
   };
 
-  const { data: result, usingMock } = useApiWithFallback<ApiObservationsList>(
+  const { data: result, loading, usingMock } = useApiWithFallback<ApiObservationsList>(
     () => api.getAllObservations(apiParams),
     MOCK_LIST,
     [filterUser, filterComet, filterDateFrom, filterDateTo],
@@ -122,6 +122,17 @@ export function AllObservationsPage() {
   }
 
   const hasFilters = !!(filterUser || filterComet || filterDateFrom || filterDateTo);
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga', fontSize: '18px' }}>
+          Загрузка...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-vh-100 d-flex flex-column">

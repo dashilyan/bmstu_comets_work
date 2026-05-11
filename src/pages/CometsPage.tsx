@@ -10,12 +10,10 @@ export function CometsPage() {
   useEffect(() => { document.body.classList.remove('main-page'); }, []);
 
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
 
   const { data: comets, loading, usingMock } = useApiWithFallback<ApiComet[]>(
-    () => api.getComets(search || undefined),
+    () => api.getComets(),
     MOCK_COMETS,
-    [search],
   );
 
   const [columns, setColumns] = useState(4);
@@ -65,26 +63,6 @@ export function CometsPage() {
           )}
         </div>
 
-        {/* Search */}
-        <div style={{ marginTop: '24px', position: 'relative', maxWidth: '400px' }}>
-          <input
-            type="text"
-            placeholder="Поиск по названию..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              width: '100%', height: '48px', backgroundColor: 'rgba(255,255,255,0.1)',
-              border: 'none', borderRadius: '32px', padding: '0 20px',
-              fontSize: '16px', fontFamily: 'Naga', color: '#fff', outline: 'none', boxSizing: 'border-box',
-            }}
-          />
-          <div style={{
-            position: 'absolute', inset: 0, borderRadius: '32px', padding: '1px',
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 75%, rgba(255,255,255,0.5) 100%)',
-            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            WebkitMaskComposite: 'xor', maskComposite: 'exclude', pointerEvents: 'none',
-          }} />
-        </div>
       </div>
 
       <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '80px auto 64px' }}>

@@ -45,7 +45,7 @@ export function UserObservations() {
   const [filterStatus, setFilterStatus] = useState('Все');
   const [page, setPage] = useState(0);
 
-  const { data: allObservations, usingMock } = useApiWithFallback<ApiObservation[]>(
+  const { data: allObservations, loading, usingMock } = useApiWithFallback<ApiObservation[]>(
     () => api.getMyObservations(),
     MOCK_MY_OBSERVATIONS,
   );
@@ -71,6 +71,17 @@ export function UserObservations() {
     setFilterStatus('Все');
     setPage(0);
   };
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga', fontSize: '18px' }}>
+          Загрузка...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-vh-100 d-flex flex-column">

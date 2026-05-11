@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/AppHeader';
 import { useAuth } from '../context/AuthContext';
 import { useApiWithFallback } from '../hooks/useApiWithFallback';
@@ -21,7 +21,8 @@ const navLinkStyle: React.CSSProperties = {
 export function ModeratorProfile() {
   useEffect(() => { document.body.classList.remove('main-page'); }, []);
 
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const displayName = user
     ? (user.first_name || user.last_name ? `${user.first_name} ${user.last_name}`.trim() : user.username)
     : 'Модератор';
@@ -81,6 +82,12 @@ export function ModeratorProfile() {
             <Link to="/profile" style={navLinkStyle}>Мой профиль</Link>
             <Link to="/mod-table" style={navLinkStyle}>Очередь проверки</Link>
             <Link to="/profile-edit" style={navLinkStyle}>Настройки</Link>
+            <button
+              onClick={async () => { await logout(); navigate('/auth'); }}
+              style={{ ...navLinkStyle, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              Выйти
+            </button>
           </div>
         </div>
 
