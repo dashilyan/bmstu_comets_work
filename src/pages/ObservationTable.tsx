@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/AppHeader';
+import { Breadcrumbs } from '../components/Breadcrumbs';
 import { useApiWithFallback } from '../hooks/useApiWithFallback';
 import { api } from '../api/api';
 import { MOCK_MY_OBSERVATIONS, formatDate, statusLabel } from '../data/mockData';
@@ -77,9 +78,11 @@ export function UserObservations() {
 
       <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '80px auto 0' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga' }}>
-            Главная / Профиль / Мои наблюдения
-          </div>
+          <Breadcrumbs crumbs={[
+            { label: 'Главная', to: '/' },
+            { label: 'Профиль', to: '/profile' },
+            { label: 'Мои наблюдения' },
+          ]} />
           {usingMock && <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontFamily: 'Naga' }}>офлайн-режим</span>}
         </div>
       </div>

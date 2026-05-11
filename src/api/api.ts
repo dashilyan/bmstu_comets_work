@@ -80,9 +80,12 @@ export const api = {
     return apiFetch<ApiObservation[]>(`/api/observations/my/?${qs}`);
   },
 
-  getAllObservations: (params: { limit?: number; offset?: number; comet_id?: number } = {}) => {
+  getAllObservations: (params: {
+    limit?: number; offset?: number; comet_id?: number;
+    username?: string; comet_search?: string; date_from?: string; date_to?: string;
+  } = {}) => {
     const qs = new URLSearchParams();
-    Object.entries(params).forEach(([k, v]) => { if (v !== undefined) qs.set(k, String(v)); });
+    Object.entries(params).forEach(([k, v]) => { if (v !== undefined && v !== '') qs.set(k, String(v)); });
     return apiFetch<ApiObservationsList>(`/api/observations/all/?${qs}`);
   },
 
@@ -107,6 +110,12 @@ export const api = {
 
   removeFavorite: (id: number) =>
     apiFetch<{ message: string }>(`/api/favorites/remove/${id}/`, { method: 'DELETE' }),
+
+  findOrCreateTelescope: (data: { model_name: string; focal_length?: number | null; manufacturer?: string | null }) =>
+    apiFetch<ApiTelescope>('/api/telescopes/find-or-create/', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
 
   getModerationQueue: () => apiFetch<ApiModerationQueue>('/api/moderation/queue/'),
 

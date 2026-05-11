@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { AppHeader } from '../components/AppHeader';
+import { Breadcrumbs } from '../components/Breadcrumbs';
 import { useApiWithFallback } from '../hooks/useApiWithFallback';
 import { api } from '../api/api';
 import { MOCK_USER, formatDate, statusLabel } from '../data/mockData';
@@ -61,9 +62,7 @@ export function UserProfile() {
       <AppHeader />
 
       <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '80px auto 0' }}>
-        <div style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga' }}>
-          Главная / Профиль
-        </div>
+        <Breadcrumbs crumbs={[{ label: 'Главная', to: '/' }, { label: 'Профиль' }]} />
       </div>
 
       <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '32px auto 64px', display: 'flex', gap: '80px' }}>
@@ -95,7 +94,7 @@ export function UserProfile() {
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px', marginTop: '20px' }}>
             <Link to="/profile-edit" style={linkStyle}>Настройки профиля</Link>
-            <Link to="/obs-table" style={linkStyle}>Мои наблюдения</Link>
+            <Link to={`/obs-list?user=${profile.username}`} style={linkStyle}>Мои наблюдения</Link>
             <Link to="/new-observation" style={linkStyle}>Новое наблюдение</Link>
             <Link to="/faq" style={linkStyle}>Помощь</Link>
             <button onClick={handleLogout} style={{ ...linkStyle, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
@@ -140,7 +139,7 @@ export function UserProfile() {
               <h3 style={{ fontSize: '20px', textTransform: 'uppercase', color: '#fff', fontFamily: 'Lemon Milk', margin: 0 }}>
                 Последние наблюдения
               </h3>
-              <Link to="/obs-table" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', fontFamily: 'Naga' }}>
+              <Link to={`/obs-list?user=${profile.username}`} style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px', fontFamily: 'Naga' }}>
                 Все наблюдения →
               </Link>
             </div>
