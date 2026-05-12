@@ -93,11 +93,15 @@ export function CometsPage() {
               >
                 <div style={cardBorder} />
 
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                  <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                      stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinejoin="round" fill="rgba(255,255,255,0.1)" />
-                  </svg>
+                <div style={{ flex: 1, overflow: 'hidden', borderTopLeftRadius: '32px', borderTopRightRadius: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                  {comet.first_photo_url ? (
+                    <img src={comet.first_photo_url} alt={comet.official_name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  ) : (
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                        stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinejoin="round" fill="rgba(255,255,255,0.1)" />
+                    </svg>
+                  )}
                 </div>
 
                 <div style={{

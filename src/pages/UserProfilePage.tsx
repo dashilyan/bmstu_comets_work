@@ -168,24 +168,39 @@ export function UserProfile() {
                 {recentObs.map((obs) => {
                   const { label, color } = statusLabel(obs.status);
                   return (
-                    <div key={obs.id}>
+                    <div key={obs.id} style={{ cursor: 'pointer' }} onClick={() => navigate(`/obs-details/${obs.id}`)}>
                       <div style={{
                         width: '100%', aspectRatio: '1', backgroundColor: 'rgba(255,255,255,0.05)',
-                        borderRadius: '16px', marginBottom: '12px',
-                        backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%)',
-                        backgroundSize: '20px 20px',
-                      }} />
-                      <div style={{ fontSize: '16px', color: '#fff', marginBottom: '4px', fontFamily: 'Naga' }}>
-                        {obs.comet_name}
+                        borderRadius: '16px', marginBottom: '12px', overflow: 'hidden',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      }}>
+                        {obs.first_photo_url ? (
+                          <img src={obs.first_photo_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                        ) : (
+                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
+                            <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" />
+                          </svg>
+                        )}
                       </div>
-                      <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '4px', fontFamily: 'Naga' }}>
+                      <div style={{ fontSize: '16px', color: '#fff', marginBottom: '4px', fontFamily: 'Naga' }}>
+                        {obs.comet_name || 'Комета не определена'}
+                      </div>
+                      <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginBottom: '6px', fontFamily: 'Naga' }}>
                         {formatDate(obs.date_obs)}
                       </div>
-                      <div style={{
-                        fontSize: '12px', color, display: 'inline-block',
-                        padding: '4px 8px', backgroundColor: `${color}20`, borderRadius: '20px', fontFamily: 'Naga',
-                      }}>
-                        {label}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <div style={{
+                          fontSize: '12px', color, display: 'inline-block',
+                          padding: '4px 8px', backgroundColor: `${color}20`, borderRadius: '20px', fontFamily: 'Naga',
+                        }}>
+                          {label}
+                        </div>
+                        {obs.status === 'draft' && (
+                          <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontFamily: 'Naga' }}>
+                            на проверке у модератора
+                          </div>
+                        )}
                       </div>
                     </div>
                   );

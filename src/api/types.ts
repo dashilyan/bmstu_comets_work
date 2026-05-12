@@ -36,6 +36,7 @@ export interface ApiComet {
   p_avg: number | null;
   coma_size: string | null;
   brightness: number | null;
+  first_photo_url: string | null;
 }
 
 export interface ApiTelescope {
@@ -60,6 +61,7 @@ export interface ApiObservation {
   username: string;
   notes: string | null;
   photos_count: number;
+  first_photo_url: string | null;
 }
 
 export interface ApiPhoto {

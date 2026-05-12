@@ -114,11 +114,15 @@ export function CometPage() {
         <span style={{ fontSize: '16px', color: '#fff', fontFamily: 'Naga' }}>{obs.username}</span>
         <span style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)' }}>↗</span>
       </div>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
-          <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
-        </svg>
+      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.2)' }}>
+        {obs.first_photo_url ? (
+          <img src={obs.first_photo_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        ) : (
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+            <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
+          </svg>
+        )}
       </div>
       <div style={{ height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
         <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', fontFamily: 'Naga' }}>{formatDate(obs.date_obs)}</span>
@@ -146,6 +150,9 @@ export function CometPage() {
 
       {/* Header block */}
       <div className="position-relative overflow-hidden" style={{ width: '100%', backgroundColor: 'rgba(255,255,255,0.1)', marginTop: '48px' }}>
+        {comet.first_photo_url && (
+          <img src={comet.first_photo_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.25, pointerEvents: 'none' }} />
+        )}
         <div style={{ padding: '46px 0', position: 'relative', zIndex: 2 }}>
           <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
