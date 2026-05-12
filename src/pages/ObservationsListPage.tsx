@@ -53,13 +53,15 @@ export function AllObservationsPage() {
   const [filterComet, setFilterComet] = useState(searchParams.get('comet') ?? '');
   const [filterDateFrom, setFilterDateFrom] = useState(searchParams.get('date_from') ?? '');
   const [filterDateTo, setFilterDateTo] = useState(searchParams.get('date_to') ?? '');
+  const [filterFavorites, setFilterFavorites] = useState(searchParams.get('favorites') === '1');
 
-  const syncParams = useCallback((u: string, c: string, df: string, dt: string) => {
+  const syncParams = useCallback((u: string, c: string, df: string, dt: string, fav: boolean) => {
     const p: Record<string, string> = {};
     if (u) p.user = u;
     if (c) p.comet = c;
     if (df) p.date_from = df;
     if (dt) p.date_to = dt;
+    if (fav) p.favorites = '1';
     setSearchParams(p, { replace: true });
   }, [setSearchParams]);
 
@@ -111,28 +113,37 @@ export function AllObservationsPage() {
     return () => window.removeEventListener('resize', calc);
   }, []);
 
-  function handleUserChange(v: string) { setFilterUser(v); syncParams(v, filterComet, filterDateFrom, filterDateTo); }
-  function handleCometChange(v: string) { setFilterComet(v); syncParams(filterUser, v, filterDateFrom, filterDateTo); }
-  function handleDateFromChange(v: string) { setFilterDateFrom(v); syncParams(filterUser, filterComet, v, filterDateTo); }
-  function handleDateToChange(v: string) { setFilterDateTo(v); syncParams(filterUser, filterComet, filterDateFrom, v); }
+  function handleUserChange(v: string) { setFilterUser(v); syncParams(v, filterComet, filterDateFrom, filterDateTo, filterFavorites); }
+  function handleCometChange(v: string) { setFilterComet(v); syncParams(filterUser, v, filterDateFrom, filterDateTo, filterFavorites); }
+  function handleDateFromChange(v: string) { setFilterDateFrom(v); syncParams(filterUser, filterComet, v, filterDateTo, filterFavorites); }
+  function handleDateToChange(v: string) { setFilterDateTo(v); syncParams(filterUser, filterComet, filterDateFrom, v, filterFavorites); }
+  function toggleFilterFavorites() {
+    const next = !filterFavorites;
+    setFilterFavorites(next);
+    syncParams(filterUser, filterComet, filterDateFrom, filterDateTo, next);
+  }
 
   function resetFilters() {
-    setFilterUser(''); setFilterComet(''); setFilterDateFrom(''); setFilterDateTo('');
+    setFilterUser(''); setFilterComet(''); setFilterDateFrom(''); setFilterDateTo(''); setFilterFavorites(false);
     setSearchParams({}, { replace: true });
   }
 
-  const hasFilters = !!(filterUser || filterComet || filterDateFrom || filterDateTo);
+  const hasFilters = !!(filterUser || filterComet || filterDateFrom || filterDateTo || filterFavorites);
 
   if (loading && !usingMock) {
     return (
       <div className="min-vh-100 d-flex flex-column">
         <AppHeader />
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga', fontSize: '18px' }}>
-          Загрузка...
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
         </div>
       </div>
     );
   }
+
+  const displayedObs = filterFavorites ? result.observations.filter((o) => favorites.has(o.id)) : result.observations;
 
   return (
     <div className="min-vh-100 d-flex flex-column">
@@ -199,6 +210,25 @@ export function AllObservationsPage() {
             </div>
           </div>
 
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <button
+              onClick={toggleFilterFavorites}
+              title="Только избранное"
+              style={{
+                width: '48px', height: '48px',
+                backgroundColor: filterFavorites ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
+                border: 'none', borderRadius: '50%', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                position: 'relative', transition: 'background-color 0.2s',
+              }}
+            >
+              <div style={{ ...gradBorder, borderRadius: '50%' }} />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill={filterFavorites ? '#ffffff' : 'none'} stroke="#ffffff" strokeWidth="2" style={{ transition: 'fill 0.2s' }}>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </button>
+          </div>
+
           {hasFilters && (
             <button onClick={resetFilters} style={btnStyle}>
               <div style={{ ...gradBorder, borderRadius: '32px' }} />
@@ -209,13 +239,13 @@ export function AllObservationsPage() {
       </div>
 
       <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '32px auto 64px' }}>
-        {result.observations.length === 0 ? (
+        {displayedObs.length === 0 ? (
           <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', fontFamily: 'Naga', marginTop: '64px', fontSize: '18px' }}>
             Наблюдений не найдено
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: `repeat(${columns}, 1fr)`, gap: '32px' }}>
-            {result.observations.map((obs) => {
+            {displayedObs.map((obs) => {
               const isFav = favorites.has(obs.id);
               return (
                 <div
@@ -269,7 +299,7 @@ export function AllObservationsPage() {
         )}
 
         <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center', color: 'rgba(255,255,255,0.6)', fontSize: '16px', fontFamily: 'Naga' }}>
-          Всего наблюдений: {result.total}
+          Всего наблюдений: {filterFavorites ? displayedObs.length : result.total}
         </div>
       </div>
     </div>

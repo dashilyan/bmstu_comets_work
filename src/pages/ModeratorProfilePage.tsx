@@ -27,10 +27,23 @@ export function ModeratorProfile() {
     ? (user.first_name || user.last_name ? `${user.first_name} ${user.last_name}`.trim() : user.username)
     : 'Модератор';
 
-  const { data: queue } = useApiWithFallback<ApiModerationQueue>(
+  const { data: queue, loading, usingMock } = useApiWithFallback<ApiModerationQueue>(
     () => api.getModerationQueue(),
     MOCK_MODERATION_QUEUE,
   );
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   const pending = queue.total;
 
@@ -79,9 +92,8 @@ export function ModeratorProfile() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px', marginTop: '20px' }}>
-            <Link to="/profile" style={navLinkStyle}>Мой профиль</Link>
+            <Link to="/profile-edit" style={navLinkStyle}>Редактировать профиль</Link>
             <Link to="/mod-table" style={navLinkStyle}>Очередь проверки</Link>
-            <Link to="/profile-edit" style={navLinkStyle}>Настройки</Link>
             <button
               onClick={async () => { await logout(); navigate('/auth'); }}
               style={{ ...navLinkStyle, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}

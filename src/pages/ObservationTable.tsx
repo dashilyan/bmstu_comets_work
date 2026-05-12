@@ -76,8 +76,10 @@ export function UserObservations() {
     return (
       <div className="min-vh-100 d-flex flex-column">
         <AppHeader />
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.6)', fontFamily: 'Naga', fontSize: '18px' }}>
-          Загрузка...
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
         </div>
       </div>
     );

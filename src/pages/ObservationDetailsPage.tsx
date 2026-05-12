@@ -49,7 +49,7 @@ export function ObservationDetailsPage() {
 
   const [currentImage, setCurrentImage] = useState(0);
 
-  const { data: obs, usingMock } = useApiWithFallback<ApiObservationDetail>(
+  const { data: obs, loading, usingMock } = useApiWithFallback<ApiObservationDetail>(
     () => api.getObservationDetail(obsId),
     mockDetail,
     [obsId],
@@ -87,6 +87,19 @@ export function ObservationDetailsPage() {
 
   const fmtVal = (v: number | null | undefined) =>
     v != null ? v.toFixed(2) : '—';
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-vh-100 d-flex flex-column">

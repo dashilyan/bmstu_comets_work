@@ -66,9 +66,11 @@ export function CometsPage() {
       </div>
 
       <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '80px auto 64px' }}>
-        {loading ? (
-          <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga', fontSize: '18px', marginTop: '80px' }}>
-            Загрузка...
+        {loading && !usingMock ? (
+          <div style={{ marginTop: '80px', display: 'flex', justifyContent: 'center' }}>
+            <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+              Загрузка...
+            </span>
           </div>
         ) : comets.length === 0 ? (
           <div style={{ textAlign: 'center', color: 'rgba(255,255,255,0.4)', fontFamily: 'Naga', fontSize: '18px', marginTop: '80px' }}>

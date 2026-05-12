@@ -69,10 +69,23 @@ export function ModeratorQueue() {
   // Local state for processed IDs to hide approved/rejected rows optimistically
   const [processed, setProcessed] = useState<Set<number>>(new Set());
 
-  const { data: queue, usingMock, refetch } = useApiWithFallback<ApiModerationQueue>(
+  const { data: queue, loading, usingMock, refetch } = useApiWithFallback<ApiModerationQueue>(
     () => api.getModerationQueue(),
     MOCK_MODERATION_QUEUE,
   );
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   const filtered = useMemo(() => {
     return queue.observations.filter((obs) => {

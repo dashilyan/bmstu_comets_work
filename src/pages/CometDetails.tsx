@@ -54,7 +54,7 @@ export function CometPage() {
     ? { ...(MOCK_COMETS.find((c) => c.id === cometId) ?? MOCK_COMETS[0]), observations_count: 156, observations: MOCK_ALL_OBSERVATIONS.slice(0, 5) }
     : DEFAULT_COMET;
 
-  const { data: comet, usingMock } = useApiWithFallback<ApiCometDetail>(
+  const { data: comet, loading, usingMock } = useApiWithFallback<ApiCometDetail>(
     () => cometId ? api.getCometDetail(cometId) : Promise.reject(new Error('no id')),
     mockComet,
     [cometId],
@@ -126,6 +126,19 @@ export function CometPage() {
       </div>
     </div>
   );
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-vh-100 d-flex flex-column">

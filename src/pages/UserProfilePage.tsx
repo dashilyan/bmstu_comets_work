@@ -40,11 +40,24 @@ export function UserProfile() {
   const { user: authUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  const { data: profile } = useApiWithFallback<UserStats>(
+  const { data: profile, loading, usingMock } = useApiWithFallback<UserStats>(
     () => api.getProfile(),
     authUser ?? MOCK_USER,
     [authUser?.id],
   );
+
+  if (loading && !usingMock) {
+    return (
+      <div className="min-vh-100 d-flex flex-column">
+        <AppHeader />
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontFamily: 'Lemon Milk', fontSize: '24px', color: '#fff', textTransform: 'uppercase', letterSpacing: '4px' }}>
+            Загрузка...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   const handleLogout = async () => {
     await logout();
@@ -93,8 +106,9 @@ export function UserProfile() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '12px', marginTop: '20px' }}>
-            <Link to="/profile-edit" style={linkStyle}>Настройки профиля</Link>
+            <Link to="/profile-edit" style={linkStyle}>Редактировать профиль</Link>
             <Link to={`/obs-list?user=${profile.username}`} style={linkStyle}>Мои наблюдения</Link>
+            <Link to="/obs-list?favorites=1" style={linkStyle}>Избранное</Link>
             <Link to="/new-observation" style={linkStyle}>Новое наблюдение</Link>
             <Link to="/faq" style={linkStyle}>Помощь</Link>
             <button onClick={handleLogout} style={{ ...linkStyle, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
