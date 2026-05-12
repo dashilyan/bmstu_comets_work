@@ -33,7 +33,15 @@ export async function apiFetch<T>(path: string, options?: RequestInit): Promise<
     headers: { ...headers, ...options?.headers },
   });
 
-  if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
+  if (!resp.ok) {
+    let detail = `${resp.status} ${resp.statusText}`;
+    try {
+      const body = await resp.json();
+      if (body?.error) detail = body.error;
+      else if (body?.detail) detail = body.detail;
+    } catch { /* ignore parse errors */ }
+    throw new Error(detail);
+  }
   return resp.json() as Promise<T>;
 }
 
