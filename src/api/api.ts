@@ -91,6 +91,7 @@ export const api = {
   getAllObservations: (params: {
     limit?: number; offset?: number; comet_id?: number;
     username?: string; comet_search?: string; date_from?: string; date_to?: string;
+    status?: string;
   } = {}) => {
     const qs = new URLSearchParams();
     Object.entries(params).forEach(([k, v]) => { if (v !== undefined && v !== '') qs.set(k, String(v)); });

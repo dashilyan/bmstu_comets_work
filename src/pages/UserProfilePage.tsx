@@ -172,15 +172,17 @@ export function UserProfile() {
                       <div style={{
                         width: '100%', aspectRatio: '1', backgroundColor: 'rgba(255,255,255,0.05)',
                         borderRadius: '16px', marginBottom: '12px', overflow: 'hidden',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        position: 'relative',
                       }}>
                         {obs.first_photo_url ? (
-                          <img src={obs.first_photo_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                          <img src={obs.first_photo_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
-                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-                            <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" />
-                          </svg>
+                          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                              <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
+                              <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" />
+                            </svg>
+                          </div>
                         )}
                       </div>
                       <div style={{ fontSize: '16px', color: '#fff', marginBottom: '4px', fontFamily: 'Naga' }}>

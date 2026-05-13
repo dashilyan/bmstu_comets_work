@@ -91,7 +91,7 @@ export interface ApiObservationDetail {
   status: 'draft' | 'published' | 'rejected' | 'archived';
   date_created: string;
   notes: string | null;
-  comet: ApiComet;
+  comet: ApiComet | null;
   telescope: ApiTelescope;
   user: ApiUser;
   photos: ApiPhoto[];

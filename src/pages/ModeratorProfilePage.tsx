@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppHeader } from '../components/AppHeader';
 import { useAuth } from '../context/AuthContext';
@@ -27,10 +27,21 @@ export function ModeratorProfile() {
     ? (user.first_name || user.last_name ? `${user.first_name} ${user.last_name}`.trim() : user.username)
     : 'Модератор';
 
-  const { data: queue, loading, usingMock } = useApiWithFallback<ApiModerationQueue>(
+  const { data: queue, loading, usingMock, refetch } = useApiWithFallback<ApiModerationQueue>(
     () => api.getModerationQueue(),
     MOCK_MODERATION_QUEUE,
   );
+
+  const [actioning, setActioning] = useState<Record<number, boolean>>({});
+
+  const handleApprove = async (id: number) => {
+    setActioning((p) => ({ ...p, [id]: true }));
+    try { await api.approveObservation(id); refetch(); } finally { setActioning((p) => ({ ...p, [id]: false })); }
+  };
+  const handleReject = async (id: number) => {
+    setActioning((p) => ({ ...p, [id]: true }));
+    try { await api.rejectObservation(id); refetch(); } finally { setActioning((p) => ({ ...p, [id]: false })); }
+  };
 
   if (loading && !usingMock) {
     return (
@@ -159,7 +170,7 @@ export function ModeratorProfile() {
               <h3 style={{ fontSize: '20px', fontFamily: 'Lemon Milk', textTransform: 'uppercase', color: '#fff', margin: 0 }}>
                 Очередь на проверку
               </h3>
-              <Link to="/mod-table" style={{
+              <Link to="/obs-list?status=draft" style={{
                 padding: '8px 20px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '20px',
                 color: '#fff', textDecoration: 'none', fontSize: '14px', fontFamily: 'Naga',
               }}>
@@ -175,19 +186,55 @@ export function ModeratorProfile() {
                 }}>
                   <div style={{
                     width: '48px', height: '48px', backgroundColor: 'rgba(255,255,255,0.1)',
-                    borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                    borderRadius: '12px', flexShrink: 0, overflow: 'hidden',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
-                    </svg>
+                    {obs.photos?.[0]?.url ? (
+                      <img src={obs.photos[0].url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
+                      </svg>
+                    )}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: '15px', color: '#fff', marginBottom: '4px', fontFamily: 'Naga', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {obs.comet.official_name} — {obs.user.username}
+                      {obs.comet?.official_name ?? 'Комета не определена'} — {obs.user.username}
                     </div>
                     <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga' }}>
                       #{obs.id} · ожидает проверки
                     </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                    <button
+                      onClick={() => handleApprove(obs.id)}
+                      disabled={actioning[obs.id]}
+                      title="Одобрить"
+                      style={{ width: '36px', height: '36px', borderRadius: '50%', border: 'none', cursor: 'pointer', backgroundColor: 'rgba(76,175,80,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: actioning[obs.id] ? 0.5 : 1 }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4caf50" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6L9 17L4 12" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => handleReject(obs.id)}
+                      disabled={actioning[obs.id]}
+                      title="Отклонить"
+                      style={{ width: '36px', height: '36px', borderRadius: '50%', border: 'none', cursor: 'pointer', backgroundColor: 'rgba(244,67,54,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: actioning[obs.id] ? 0.5 : 1 }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f44336" strokeWidth="2.5" strokeLinecap="round">
+                        <path d="M18 6L6 18M6 6L18 18" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => navigate(`/obs-details/${obs.id}`)}
+                      title="Подробнее"
+                      style={{ width: '36px', height: '36px', borderRadius: '50%', border: 'none', cursor: 'pointer', backgroundColor: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               ))}

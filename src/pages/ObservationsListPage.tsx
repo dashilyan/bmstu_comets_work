@@ -47,21 +47,24 @@ export function AllObservationsPage() {
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const isStaff = user?.is_staff ?? false;
 
   const [filterUser, setFilterUser] = useState(searchParams.get('user') ?? '');
   const [filterComet, setFilterComet] = useState(searchParams.get('comet') ?? '');
   const [filterDateFrom, setFilterDateFrom] = useState(searchParams.get('date_from') ?? '');
   const [filterDateTo, setFilterDateTo] = useState(searchParams.get('date_to') ?? '');
   const [filterFavorites, setFilterFavorites] = useState(searchParams.get('favorites') === '1');
+  const [filterStatus, setFilterStatus] = useState(searchParams.get('status') ?? '');
 
-  const syncParams = useCallback((u: string, c: string, df: string, dt: string, fav: boolean) => {
+  const syncParams = useCallback((u: string, c: string, df: string, dt: string, fav: boolean, st: string) => {
     const p: Record<string, string> = {};
     if (u) p.user = u;
     if (c) p.comet = c;
     if (df) p.date_from = df;
     if (dt) p.date_to = dt;
     if (fav) p.favorites = '1';
+    if (st) p.status = st;
     setSearchParams(p, { replace: true });
   }, [setSearchParams]);
 
@@ -71,12 +74,13 @@ export function AllObservationsPage() {
     comet_search: filterComet || undefined,
     date_from: filterDateFrom || undefined,
     date_to: filterDateTo || undefined,
+    status: (isStaff && filterStatus) ? filterStatus : undefined,
   };
 
   const { data: result, loading, usingMock } = useApiWithFallback<ApiObservationsList>(
     () => api.getAllObservations(apiParams),
     MOCK_LIST,
-    [filterUser, filterComet, filterDateFrom, filterDateTo],
+    [filterUser, filterComet, filterDateFrom, filterDateTo, filterStatus],
   );
 
   const [favorites, setFavorites] = useState<Set<number>>(new Set([2, 5, 8, 11]));
@@ -113,22 +117,23 @@ export function AllObservationsPage() {
     return () => window.removeEventListener('resize', calc);
   }, []);
 
-  function handleUserChange(v: string) { setFilterUser(v); syncParams(v, filterComet, filterDateFrom, filterDateTo, filterFavorites); }
-  function handleCometChange(v: string) { setFilterComet(v); syncParams(filterUser, v, filterDateFrom, filterDateTo, filterFavorites); }
-  function handleDateFromChange(v: string) { setFilterDateFrom(v); syncParams(filterUser, filterComet, v, filterDateTo, filterFavorites); }
-  function handleDateToChange(v: string) { setFilterDateTo(v); syncParams(filterUser, filterComet, filterDateFrom, v, filterFavorites); }
+  function handleUserChange(v: string) { setFilterUser(v); syncParams(v, filterComet, filterDateFrom, filterDateTo, filterFavorites, filterStatus); }
+  function handleCometChange(v: string) { setFilterComet(v); syncParams(filterUser, v, filterDateFrom, filterDateTo, filterFavorites, filterStatus); }
+  function handleDateFromChange(v: string) { setFilterDateFrom(v); syncParams(filterUser, filterComet, v, filterDateTo, filterFavorites, filterStatus); }
+  function handleDateToChange(v: string) { setFilterDateTo(v); syncParams(filterUser, filterComet, filterDateFrom, v, filterFavorites, filterStatus); }
+  function handleStatusChange(v: string) { setFilterStatus(v); syncParams(filterUser, filterComet, filterDateFrom, filterDateTo, filterFavorites, v); }
   function toggleFilterFavorites() {
     const next = !filterFavorites;
     setFilterFavorites(next);
-    syncParams(filterUser, filterComet, filterDateFrom, filterDateTo, next);
+    syncParams(filterUser, filterComet, filterDateFrom, filterDateTo, next, filterStatus);
   }
 
   function resetFilters() {
-    setFilterUser(''); setFilterComet(''); setFilterDateFrom(''); setFilterDateTo(''); setFilterFavorites(false);
+    setFilterUser(''); setFilterComet(''); setFilterDateFrom(''); setFilterDateTo(''); setFilterFavorites(false); setFilterStatus('');
     setSearchParams({}, { replace: true });
   }
 
-  const hasFilters = !!(filterUser || filterComet || filterDateFrom || filterDateTo || filterFavorites);
+  const hasFilters = !!(filterUser || filterComet || filterDateFrom || filterDateTo || filterFavorites || filterStatus);
 
   if (loading && !usingMock) {
     return (
@@ -209,6 +214,27 @@ export function AllObservationsPage() {
               <div style={gradBorder} />
             </div>
           </div>
+
+          {isStaff && (
+            <div style={{ flex: '1 1 160px' }}>
+              <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', marginBottom: '6px', fontFamily: 'Naga' }}>Статус</div>
+              <div style={{ position: 'relative' }}>
+                <select
+                  value={filterStatus}
+                  onChange={(e) => handleStatusChange(e.target.value)}
+                  style={{ ...inputStyle, cursor: 'pointer', appearance: 'none' as const }}
+                >
+                  <option value="" style={{ backgroundColor: '#1a1f2a' }}>Все</option>
+                  <option value="draft" style={{ backgroundColor: '#1a1f2a' }}>На проверке</option>
+                  <option value="published" style={{ backgroundColor: '#1a1f2a' }}>Опубликовано</option>
+                  <option value="rejected" style={{ backgroundColor: '#1a1f2a' }}>Отклонено</option>
+                  <option value="archived" style={{ backgroundColor: '#1a1f2a' }}>Архив</option>
+                </select>
+                <div style={gradBorder} />
+                <div style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.5)', fontSize: '12px', zIndex: 3, pointerEvents: 'none' }}>▼</div>
+              </div>
+            </div>
+          )}
 
           <div style={{ display: 'flex', alignItems: 'flex-end' }}>
             <button
