@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { runOnnxModelOnImage } from '../onnx/runOnnxImage'
 import { AppHeader } from '../components/AppHeader'
 import { Breadcrumbs } from '../components/Breadcrumbs'
 import { useApiWithFallback } from '../hooks/useApiWithFallback'
@@ -30,7 +29,6 @@ type FormState = {
 
 const MIN_IMAGES = 3
 const MAX_IMAGES = 10
-const MODEL_URL = '/models/model.onnx'
 const SLOT_SIZE = 200
 
 const inputStyle: React.CSSProperties = {
@@ -109,7 +107,6 @@ export function NewObservationPage() {
   const submittingRef = useRef(false)
   const [isRunning, setIsRunning] = useState(false)
   const [runError, setRunError] = useState<string | null>(null)
-  const [runResult, setRunResult] = useState<string | null>(null)
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const { data: telescopes } = useApiWithFallback<ApiTelescope[]>(() => api.getTelescopes(), MOCK_TELESCOPES)
@@ -221,23 +218,6 @@ export function NewObservationPage() {
         cometId = String(c.id)
       }
 
-      // Run ONNX model on active image
-      let onnxResult = ''
-      const activeImage = images[activeIndex]?.file
-      if (activeImage) {
-        try {
-          const r = await runOnnxModelOnImage({ modelUrl: MODEL_URL, file: activeImage, topK: 5 })
-          if (r.topIndices && r.topValues) {
-            const lines = r.topIndices.map((idx, i) => `#${i + 1}: class ${idx} (score ${r.topValues![i].toFixed(4)})`)
-            onnxResult = `Модель: ${r.outputName} dims=${JSON.stringify(r.outputDims)}\n${lines.join('\n')}`
-          } else {
-            onnxResult = `Модель отработала. Выход: ${r.outputName}`
-          }
-        } catch {
-          onnxResult = 'Модель ONNX недоступна'
-        }
-      }
-
       // Submit to backend
       const formData = new FormData()
       formData.append('telescope_id', telescopeId)
@@ -252,12 +232,11 @@ export function NewObservationPage() {
 
       try {
         const obs = await api.createObservation(formData)
-        setRunResult(`${onnxResult ? onnxResult + '\n\n' : ''}Наблюдение #${obs.id} создано успешно!`)
         setSubmitSuccess(true)
-        setTimeout(() => navigate(`/obs-details/${obs.id}`), 1500)
+        navigate(`/obs-details/${obs.id}`)
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Ошибка'
-        setRunResult(`${onnxResult ? onnxResult + '\n\n' : ''}(Сервер: ${msg} — наблюдение не сохранено)`)
+        setRunError(`Сервер: ${msg}`)
       }
     } catch (e) {
       setRunError(e instanceof Error ? e.message : 'Ошибка при обработке.')
@@ -530,21 +509,12 @@ export function NewObservationPage() {
               }}
             >
               <div style={cardBorder} />
-              <span>{isRunning ? 'Обработка...' : submitSuccess ? 'Сохранено!' : 'Сохранить наблюдение'}</span>
+              <span>{isRunning ? 'Распознавание комет...' : submitSuccess ? 'Готово!' : 'Сохранить наблюдение'}</span>
             </button>
 
-            {(runError || runResult) && (
-              <div style={{ marginTop: '24px', width: '100%' }}>
-                {runError && (
-                  <div style={{ padding: '16px', backgroundColor: 'rgba(255,0,0,0.1)', borderRadius: '16px', color: '#ff6b6b', border: '1px solid rgba(255,107,107,0.3)', fontFamily: 'Naga' }}>
-                    {runError}
-                  </div>
-                )}
-                {runResult && (
-                  <pre style={{ padding: '16px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '16px', color: '#fff', whiteSpace: 'pre-wrap', fontSize: '14px', fontFamily: 'Naga' }}>
-                    {runResult}
-                  </pre>
-                )}
+            {runError && (
+              <div style={{ marginTop: '24px', width: '100%', padding: '16px', backgroundColor: 'rgba(255,0,0,0.1)', borderRadius: '16px', color: '#ff6b6b', border: '1px solid rgba(255,107,107,0.3)', fontFamily: 'Naga' }}>
+                {runError}
               </div>
             )}
           </div>
