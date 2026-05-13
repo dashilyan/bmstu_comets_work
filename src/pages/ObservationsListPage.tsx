@@ -1,10 +1,10 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AppHeader } from '../components/AppHeader';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { useApiWithFallback } from '../hooks/useApiWithFallback';
 import { api } from '../api/api';
-import { MOCK_ALL_OBSERVATIONS, formatDate } from '../data/mockData';
+import { MOCK_ALL_OBSERVATIONS, formatDate, statusLabel } from '../data/mockData';
 import { useAuth } from '../context/AuthContext';
 import type { ApiObservationsList } from '../api/types';
 
@@ -84,6 +84,20 @@ export function AllObservationsPage() {
   );
 
   const [favorites, setFavorites] = useState<Set<number>>(new Set([2, 5, 8, 11]));
+  const [modStatuses, setModStatuses] = useState<Record<number, string>>({});
+  const actioningRef = useRef<Set<number>>(new Set());
+
+  const handleModAction = async (id: number, action: 'approve' | 'reject') => {
+    if (actioningRef.current.has(id)) return;
+    actioningRef.current.add(id);
+    try {
+      if (action === 'approve') await api.approveObservation(id);
+      else await api.rejectObservation(id);
+      setModStatuses((p) => ({ ...p, [id]: action === 'approve' ? 'published' : 'rejected' }));
+    } finally {
+      actioningRef.current.delete(id);
+    }
+  };
 
   const toggleFavorite = async (id: number) => {
     const wasFav = favorites.has(id);
@@ -236,24 +250,26 @@ export function AllObservationsPage() {
             </div>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-            <button
-              onClick={toggleFilterFavorites}
-              title="Только избранное"
-              style={{
-                width: '48px', height: '48px',
-                backgroundColor: filterFavorites ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
-                border: 'none', borderRadius: '50%', cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                position: 'relative', transition: 'background-color 0.2s',
-              }}
-            >
-              <div style={{ ...gradBorder, borderRadius: '50%' }} />
-              <svg width="22" height="22" viewBox="0 0 24 24" fill={filterFavorites ? '#ffffff' : 'none'} stroke="#ffffff" strokeWidth="2" style={{ transition: 'fill 0.2s' }}>
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            </button>
-          </div>
+          {!isStaff && (
+            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+              <button
+                onClick={toggleFilterFavorites}
+                title="Только избранное"
+                style={{
+                  width: '48px', height: '48px',
+                  backgroundColor: filterFavorites ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.1)',
+                  border: 'none', borderRadius: '50%', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  position: 'relative', transition: 'background-color 0.2s',
+                }}
+              >
+                <div style={{ ...gradBorder, borderRadius: '50%' }} />
+                <svg width="22" height="22" viewBox="0 0 24 24" fill={filterFavorites ? '#ffffff' : 'none'} stroke="#ffffff" strokeWidth="2" style={{ transition: 'fill 0.2s' }}>
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              </button>
+            </div>
+          )}
 
           {hasFilters && (
             <button onClick={resetFilters} style={btnStyle}>
@@ -293,12 +309,17 @@ export function AllObservationsPage() {
                     <span style={{ fontSize: '20px', color: 'rgba(255,255,255,0.8)', transform: 'rotate(45deg)', display: 'inline-block' }}>↗</span>
                   </div>
 
-                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
-                      <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" />
-                      <circle cx="12" cy="12" r="2" fill="rgba(255,255,255,0.2)" />
-                    </svg>
+                  <div style={{ flex: 1, overflow: 'hidden', position: 'relative', backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                    {obs.first_photo_url ? (
+                      <img src={obs.first_photo_url} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+                          <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
+                          <path d="M12 6V12L16 14" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
 
                   <div style={{ position: 'absolute', bottom: '80px', left: 0, right: 0, textAlign: 'center', padding: '0 16px' }}>
@@ -307,16 +328,40 @@ export function AllObservationsPage() {
                     </span>
                   </div>
 
-                  <div style={{ height: '61px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                    <span style={{ fontSize: '20px', color: 'rgba(255,255,255,0.8)', fontFamily: 'Naga' }}>{formatDate(obs.date_obs)}</span>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); toggleFavorite(obs.id); }}
-                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center' }}
-                    >
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill={isFav ? '#ffffff' : 'none'} stroke="#ffffff" strokeWidth="2" style={{ transition: 'fill 0.2s' }}>
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                      </svg>
-                    </button>
+                  <div style={{ height: '61px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                    <span style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)', fontFamily: 'Naga' }}>{formatDate(obs.date_obs)}</span>
+                    {isStaff ? (() => {
+                      const effectiveStatus = modStatuses[obs.id] ?? obs.status;
+                      if (effectiveStatus === 'draft') {
+                        return (
+                          <div style={{ display: 'flex', gap: '6px' }} onClick={(e) => e.stopPropagation()}>
+                            <button onClick={() => handleModAction(obs.id, 'approve')} title="Одобрить"
+                              style={{ width: '32px', height: '32px', borderRadius: '50%', border: 'none', cursor: 'pointer', backgroundColor: 'rgba(76,175,80,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf50" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17L4 12" /></svg>
+                            </button>
+                            <button onClick={() => handleModAction(obs.id, 'reject')} title="Отклонить"
+                              style={{ width: '32px', height: '32px', borderRadius: '50%', border: 'none', cursor: 'pointer', backgroundColor: 'rgba(244,67,54,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f44336" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6L18 18" /></svg>
+                            </button>
+                          </div>
+                        );
+                      }
+                      const { label, color } = statusLabel(effectiveStatus);
+                      return (
+                        <span style={{ fontSize: '12px', color, padding: '3px 10px', backgroundColor: `${color}20`, borderRadius: '20px', fontFamily: 'Naga' }}>
+                          {label}
+                        </span>
+                      );
+                    })() : (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); toggleFavorite(obs.id); }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', alignItems: 'center' }}
+                      >
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill={isFav ? '#ffffff' : 'none'} stroke="#ffffff" strokeWidth="2" style={{ transition: 'fill 0.2s' }}>
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                 </div>
               );
