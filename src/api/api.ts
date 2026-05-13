@@ -126,6 +126,9 @@ export const api = {
       body: JSON.stringify(data),
     }),
 
+  startRecognition: (id: number) =>
+    apiFetch<{ message: string }>(`/api/recognition/start/${id}/`, { method: 'POST' }),
+
   getModerationQueue: () => apiFetch<ApiModerationQueue>('/api/moderation/queue/'),
 
   approveObservation: (id: number) =>

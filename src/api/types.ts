@@ -83,6 +83,25 @@ export interface ApiCalculation {
   orbital_period: number | null;
 }
 
+export interface RecognitionDetection {
+  photo_id: number;
+  file_name: string;
+  x: number;
+  y: number;
+  bbox_w: number | null;
+  bbox_h: number | null;
+  confidence: number;
+  img_width: number | null;
+  img_height: number | null;
+  recognized_url: string | null;
+}
+
+export interface RecognitionData {
+  confidence: number;
+  recognized_at: string | null;
+  detections: RecognitionDetection[];
+}
+
 export interface ApiObservationDetail {
   id: number;
   date_obs: string;
@@ -96,6 +115,7 @@ export interface ApiObservationDetail {
   user: ApiUser;
   photos: ApiPhoto[];
   calculation: ApiCalculation | null;
+  recognition: RecognitionData | null;
 }
 
 export interface ApiUserFavorite {

@@ -78,6 +78,7 @@ export function NewObservationPage() {
     location: '', brightness: '', comaSize: '', tailLength: '', notes: '',
   })
 
+  const submittingRef = useRef(false)
   const [isRunning, setIsRunning] = useState(false)
   const [runError, setRunError] = useState<string | null>(null)
   const [runResult, setRunResult] = useState<string | null>(null)
@@ -150,6 +151,7 @@ export function NewObservationPage() {
   }
 
   async function onSubmit() {
+    if (submittingRef.current) return
     setRunError(null); setRunResult(null); setSubmitSuccess(false)
 
     if (images.length < MIN_IMAGES) {
@@ -170,6 +172,7 @@ export function NewObservationPage() {
       return
     }
 
+    submittingRef.current = true
     setIsRunning(true)
     try {
       // Resolve telescope id
@@ -215,7 +218,7 @@ export function NewObservationPage() {
         const obs = await api.createObservation(formData)
         setRunResult(`${onnxResult ? onnxResult + '\n\n' : ''}Наблюдение #${obs.id} создано успешно!`)
         setSubmitSuccess(true)
-        setTimeout(() => navigate('/obs-table'), 2000)
+        setTimeout(() => navigate(`/obs-details/${obs.id}`), 1500)
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Ошибка'
         setRunResult(`${onnxResult ? onnxResult + '\n\n' : ''}(Сервер: ${msg} — наблюдение не сохранено)`)
@@ -223,6 +226,7 @@ export function NewObservationPage() {
     } catch (e) {
       setRunError(e instanceof Error ? e.message : 'Ошибка при обработке.')
     } finally {
+      submittingRef.current = false
       setIsRunning(false)
     }
   }

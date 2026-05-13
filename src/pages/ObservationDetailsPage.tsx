@@ -7,7 +7,7 @@ import {
   MOCK_ALL_OBSERVATIONS, MOCK_MY_OBSERVATIONS, MOCK_COMETS, MOCK_TELESCOPES, MOCK_USER,
   formatDate, statusLabel,
 } from '../data/mockData';
-import type { ApiObservationDetail } from '../api/types';
+import type { ApiObservationDetail, RecognitionDetection } from '../api/types';
 
 const gradBorder: React.CSSProperties = {
   position: 'absolute', inset: 0, borderRadius: '32px', padding: '1px',
@@ -33,6 +33,7 @@ function buildMockDetail(id: number): ApiObservationDetail {
     user: MOCK_USER,
     photos: [],
     calculation: null,
+    recognition: null,
   };
 }
 
@@ -48,16 +49,44 @@ export function ObservationDetailsPage() {
   const mockDetail = buildMockDetail(obsId);
 
   const [currentImage, setCurrentImage] = useState(0);
+  const [recognizing, setRecognizing] = useState(false);
+  const [recognizeError, setRecognizeError] = useState<string | null>(null);
 
-  const { data: obs, loading, usingMock } = useApiWithFallback<ApiObservationDetail>(
+  const { data: obs, loading, usingMock, refetch } = useApiWithFallback<ApiObservationDetail>(
     () => api.getObservationDetail(obsId),
     mockDetail,
     [obsId],
   );
 
+  // Автообновление пока есть задача без результата (recognition === null после запуска)
+  const [polling, setPolling] = useState(false);
+  useEffect(() => {
+    if (!polling) return;
+    if (obs.recognition) { setPolling(false); return; }
+    const timer = setInterval(() => { refetch(); }, 3000);
+    return () => clearInterval(timer);
+  }, [polling, obs.recognition, refetch]);
+
+  const handleStartRecognition = async () => {
+    setRecognizing(true);
+    setRecognizeError(null);
+    try {
+      await api.startRecognition(obsId);
+      setPolling(true);
+    } catch (e) {
+      setRecognizeError(e instanceof Error ? e.message : 'Ошибка запуска');
+    } finally {
+      setRecognizing(false);
+    }
+  }
+
   const photos = obs.photos;
   const hasPhotos = photos.length > 0;
   const totalImages = hasPhotos ? photos.length : 0;
+
+  const detectionByPhotoId = new Map<number, RecognitionDetection>(
+    (obs.recognition?.detections ?? []).map((d) => [d.photo_id, d]),
+  );
 
   const prevImage = () => setCurrentImage((i) => (i - 1 + totalImages) % totalImages);
   const nextImage = () => setCurrentImage((i) => (i + 1) % totalImages);
@@ -72,17 +101,17 @@ export function ObservationDetailsPage() {
     { label: 'Координаты', value: obs.coordinates },
     { label: 'Статус', value: statusText, color: statusColor },
     ...(obs.notes ? [{ label: 'Комментарии', value: obs.notes }] : []),
-    ...(calc?.coma ? [{ label: 'Размер комы', value: calc.coma }] : comet.coma_size ? [{ label: 'Размер комы', value: comet.coma_size }] : []),
-    ...(calc?.brightness != null ? [{ label: 'Яркость', value: `${calc.brightness}m` }] : comet.brightness != null ? [{ label: 'Яркость', value: `${comet.brightness}m` }] : []),
+    ...(calc?.coma ? [{ label: 'Размер комы', value: calc.coma }] : comet?.coma_size ? [{ label: 'Размер комы', value: comet.coma_size }] : []),
+    ...(calc?.brightness != null ? [{ label: 'Яркость', value: `${calc.brightness}m` }] : comet?.brightness != null ? [{ label: 'Яркость', value: `${comet.brightness}m` }] : []),
   ];
 
   const orbitalParams = [
-    { label: 'e', value: calc?.exentricity ?? comet.e_avg, description: 'эксцентриситет' },
-    { label: 'i', value: calc?.inclination ?? comet.i_avg, description: 'наклонение' },
-    { label: 'Ω', value: calc?.longtitude ?? comet.node_avg, description: 'долгота узла' },
-    { label: 'ω', value: calc?.arg_perihelion ?? comet.peri_avg, description: 'аргумент перигелия' },
-    { label: 'a', value: comet.a_avg, description: 'большая полуось (а.е.)' },
-    { label: 'P', value: calc?.orbital_period ?? comet.p_avg, description: 'период (лет)' },
+    { label: 'e', value: calc?.exentricity ?? comet?.e_avg, description: 'эксцентриситет' },
+    { label: 'i', value: calc?.inclination ?? comet?.i_avg, description: 'наклонение' },
+    { label: 'Ω', value: calc?.longtitude ?? comet?.node_avg, description: 'долгота узла' },
+    { label: 'ω', value: calc?.arg_perihelion ?? comet?.peri_avg, description: 'аргумент перигелия' },
+    { label: 'a', value: comet?.a_avg, description: 'большая полуось (а.е.)' },
+    { label: 'P', value: calc?.orbital_period ?? comet?.p_avg, description: 'период (лет)' },
   ];
 
   const fmtVal = (v: number | null | undefined) =>
@@ -116,6 +145,42 @@ export function ObservationDetailsPage() {
 
       <main className="flex-grow-1">
         <div className="mx-auto" style={{ maxWidth: '1280px', width: 'calc(100% - 80px)', margin: '32px auto 64px' }}>
+
+          {/* Панель распознавания */}
+          {!usingMock && (
+            <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              {obs.recognition ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#4caf50' }} />
+                  <span style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'Naga', fontSize: '14px' }}>
+                    Распознавание завершено · уверенность {(obs.recognition.confidence * 100).toFixed(0)}% · {obs.recognition.detections.length} фото обработано
+                  </span>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'rgba(255,200,0,0.8)' }} />
+                  <span style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga', fontSize: '14px' }}>
+                    Распознавание не выполнено
+                  </span>
+                </div>
+              )}
+              <button
+                onClick={handleStartRecognition}
+                disabled={recognizing}
+                style={{
+                  padding: '6px 16px', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '20px', color: '#fff', fontSize: '13px', fontFamily: 'Naga',
+                  cursor: recognizing ? 'not-allowed' : 'pointer', opacity: recognizing ? 0.6 : 1,
+                }}
+              >
+                {recognizing ? 'Запускаю...' : obs.recognition ? 'Перезапустить' : 'Запустить распознавание'}
+              </button>
+              {recognizeError && (
+                <span style={{ color: '#ff6b6b', fontSize: '13px', fontFamily: 'Naga' }}>{recognizeError}</span>
+              )}
+            </div>
+          )}
+
           <div style={{ display: 'flex', gap: '32px' }}>
 
             {/* Left: image carousel */}
@@ -127,13 +192,39 @@ export function ObservationDetailsPage() {
               }}>
                 <div style={{ ...gradBorder, zIndex: 2 }} />
 
-                {hasPhotos ? (
-                  <img
-                    src={photos[currentImage].url ?? photos[currentImage].file_path}
-                    alt="Наблюдение"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                ) : (
+                {hasPhotos ? (() => {
+                  const photo = photos[currentImage];
+                  const det = detectionByPhotoId.get(photo.id);
+                  const imgSrc = det?.recognized_url ?? photo.url ?? photo.file_path;
+                  const showSvgBox = det && !det.recognized_url && det.bbox_w && det.bbox_h && det.img_width && det.img_height;
+                  return (
+                    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                      <img
+                        src={imgSrc}
+                        alt="Наблюдение"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                      />
+                      {showSvgBox && det && det.img_width && det.img_height && det.bbox_w && det.bbox_h && (
+                        <svg
+                          viewBox={`0 0 ${det.img_width} ${det.img_height}`}
+                          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+                          preserveAspectRatio="xMidYMid meet"
+                        >
+                          <rect
+                            x={det.x - det.bbox_w / 2}
+                            y={det.y - det.bbox_h / 2}
+                            width={det.bbox_w}
+                            height={det.bbox_h}
+                            fill="none"
+                            stroke="#00FF00"
+                            strokeWidth={Math.max(2, det.img_width / 200)}
+                          />
+                          <circle cx={det.x} cy={det.y} r={Math.max(4, det.img_width / 100)} fill="#00FF00" opacity={0.8} />
+                        </svg>
+                      )}
+                    </div>
+                  );
+                })() : (
                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
                     <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
@@ -185,7 +276,7 @@ export function ObservationDetailsPage() {
                     Наблюдение №{obs.id}
                   </div>
                   <h2 style={{ fontSize: '28px', color: '#fff', margin: 0, textTransform: 'uppercase', fontFamily: 'Lemon Milk' }}>
-                    Комета {obs.comet.official_name}
+                    {obs.comet ? `Комета ${obs.comet.official_name}` : 'Комета не определена'}
                   </h2>
                 </div>
 
