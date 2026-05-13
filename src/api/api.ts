@@ -126,6 +126,12 @@ export const api = {
       body: JSON.stringify(data),
     }),
 
+  findOrCreateComet: (official_name: string) =>
+    apiFetch<ApiComet>('/api/comets/find-or-create/', {
+      method: 'POST',
+      body: JSON.stringify({ official_name }),
+    }),
+
   startRecognition: (id: number) =>
     apiFetch<{ message: string }>(`/api/recognition/start/${id}/`, { method: 'POST' }),
 

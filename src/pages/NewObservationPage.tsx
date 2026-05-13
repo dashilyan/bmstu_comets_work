@@ -6,7 +6,7 @@ import { Breadcrumbs } from '../components/Breadcrumbs'
 import { useApiWithFallback } from '../hooks/useApiWithFallback'
 import { api } from '../api/api'
 import { MOCK_TELESCOPES } from '../data/mockData'
-import type { ApiTelescope } from '../api/types'
+import type { ApiComet, ApiTelescope } from '../api/types'
 
 type UploadedImage = { file: File; url: string; time: string }
 
@@ -15,6 +15,8 @@ type FormState = {
   telescopeManualModel: string
   telescopeManualFocal: string
   telescopeManualMfr: string
+  cometId: string        // id выбранной кометы или ''
+  cometInput: string     // текст в поле поиска
   cameraModel: string
   pixelSize: string
   centerRA: string
@@ -74,9 +76,35 @@ export function NewObservationPage() {
   const [form, setForm] = useState<FormState>({
     telescopeId: '',
     telescopeManualModel: '', telescopeManualFocal: '', telescopeManualMfr: '',
+    cometId: '', cometInput: '',
     cameraModel: '', pixelSize: '', centerRA: '', centerDec: '',
     location: '', brightness: '', comaSize: '', tailLength: '', notes: '',
   })
+
+  // Поиск комет с debounce
+  const [cometSuggestions, setCometSuggestions] = useState<ApiComet[]>([])
+  const [cometDropdownOpen, setCometDropdownOpen] = useState(false)
+  const cometSearchTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  function onCometInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value
+    setForm((p) => ({ ...p, cometInput: val, cometId: '' }))
+    setCometDropdownOpen(true)
+    if (cometSearchTimer.current) clearTimeout(cometSearchTimer.current)
+    if (!val.trim()) { setCometSuggestions([]); return }
+    cometSearchTimer.current = setTimeout(async () => {
+      try {
+        const results = await api.getComets(val)
+        setCometSuggestions(results.slice(0, 8))
+      } catch { setCometSuggestions([]) }
+    }, 300)
+  }
+
+  function onCometSelect(comet: ApiComet) {
+    setForm((p) => ({ ...p, cometId: String(comet.id), cometInput: comet.official_name }))
+    setCometDropdownOpen(false)
+    setCometSuggestions([])
+  }
 
   const submittingRef = useRef(false)
   const [isRunning, setIsRunning] = useState(false)
@@ -186,6 +214,13 @@ export function NewObservationPage() {
         telescopeId = String(t.id)
       }
 
+      // Resolve comet id (необязательно)
+      let cometId = form.cometId
+      if (!cometId && form.cometInput.trim()) {
+        const c = await api.findOrCreateComet(form.cometInput.trim())
+        cometId = String(c.id)
+      }
+
       // Run ONNX model on active image
       let onnxResult = ''
       const activeImage = images[activeIndex]?.file
@@ -210,6 +245,7 @@ export function NewObservationPage() {
       formData.append('coordinates', `${form.centerRA},${form.centerDec}`)
       formData.append('notes', form.notes)
       formData.append('is_public', 'false')
+      if (cometId) formData.append('comet_id', cometId)
       if (form.brightness) formData.append('brightness', form.brightness)
       if (form.comaSize) formData.append('coma', form.comaSize)
       for (const img of images) formData.append('photos', img.file)
@@ -376,6 +412,48 @@ export function NewObservationPage() {
                       <input type="text" placeholder="Модель телескопа *" value={form.telescopeManualModel} onChange={setF('telescopeManualModel')} style={inputStyle} />
                       <input type="text" placeholder="Фокусное расстояние (мм)" value={form.telescopeManualFocal} onChange={setF('telescopeManualFocal')} style={inputStyle} />
                       <input type="text" placeholder="Производитель" value={form.telescopeManualMfr} onChange={setF('telescopeManualMfr')} style={inputStyle} />
+                    </div>
+                  )}
+                </div>
+
+                {/* Комета */}
+                <div style={{ position: 'relative' }}>
+                  <label style={labelStyle}>Комета</label>
+                  <input
+                    type="text"
+                    placeholder="Введите название или выберите из списка"
+                    value={form.cometInput}
+                    onChange={onCometInputChange}
+                    onFocus={() => form.cometInput && setCometDropdownOpen(true)}
+                    onBlur={() => setTimeout(() => setCometDropdownOpen(false), 150)}
+                    style={inputStyle}
+                    autoComplete="off"
+                  />
+                  {form.cometId && (
+                    <div style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', marginTop: '4px', color: '#4caf50', fontSize: '16px' }}>✓</div>
+                  )}
+                  {cometDropdownOpen && (
+                    <div style={{
+                      position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 100,
+                      backgroundColor: '#1a2035', borderRadius: '16px', marginTop: '4px',
+                      border: '1px solid rgba(255,255,255,0.15)', overflow: 'hidden',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                    }}>
+                      {cometSuggestions.length > 0 ? cometSuggestions.map((c) => (
+                        <div
+                          key={c.id}
+                          onMouseDown={() => onCometSelect(c)}
+                          style={{ padding: '10px 16px', cursor: 'pointer', color: '#fff', fontFamily: 'Naga', fontSize: '14px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+                          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)')}
+                          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                        >
+                          {c.official_name}
+                        </div>
+                      )) : form.cometInput.trim() ? (
+                        <div style={{ padding: '10px 16px', color: 'rgba(255,255,255,0.5)', fontFamily: 'Naga', fontSize: '13px' }}>
+                          Не найдено — будет создана новая комета «{form.cometInput.trim()}»
+                        </div>
+                      ) : null}
                     </div>
                   )}
                 </div>
